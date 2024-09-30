@@ -1,1 +1,12 @@
-<p>{{ newdata.title }}</p>
+<ng-container *ngIf="connectionStatus!=='offline'; else lostConnection">
+   <p>{{ newdata.title }}</p>
+</ng-container>
+<ng-template #lostConnection>
+   <app-placeholder [image]="'/assets/images/lost-connection.png'" [title]="'No Internet'"
+      [subtitle]="'Check if your device connection'">
+   </app-placeholder>
+</ng-template>
+
+<div class="no-display">
+   <img [src]="'/assets/images/lost-connection.png'">
+</div>
