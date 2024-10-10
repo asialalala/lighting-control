@@ -8,5 +8,13 @@ def get_data():
     }
     return jsonify(data)
 
+@app.route('/api/turn-on')
+def turnOn():
+    return 'Turn on the light'
+
+@app.route('/api/turn-off')
+def turnOff():
+    return 'Turn off the light'
+
 if __name__ == '__main__':
     app.run()
