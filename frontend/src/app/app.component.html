@@ -1,7 +1,18 @@
-<ng-container *ngIf="connectionStatus!=='offline'; else lostConnection">
-   <!-- <p>{{ newdata.title }}</p> -->
-   <app-control-menu></app-control-menu>
-</ng-container>
+<main>
+   <header class="light-header">
+      <div class="header-container">
+        <img class="brand-logo" src="/assets/images/light.png" alt="logo" aria-hidden="true" />
+        <h1 class="header-title">{{ title }}</h1>
+      </div>
+    </header>
+   <ng-container *ngIf="connectionStatus!=='offline'; else lostConnection">
+      <section class="content">
+         <app-home></app-home>
+      </section>
+   </ng-container>
+
+ </main>
+
 <ng-template #lostConnection>
    <app-placeholder [image]="'/assets/images/lost-connection.png'" [title]="'No Internet'"
       [subtitle]="'Check if your device connection'">

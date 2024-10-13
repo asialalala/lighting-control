@@ -3,21 +3,20 @@ import {NgIf} from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ApiService } from './services/api.service';
-import { error } from 'node:console';
 import { Observable, Subscription, fromEvent } from 'rxjs';
 import { PlaceholderComponent } from "./components/placeholder/placeholder.component";
-import { ControlMenuComponent } from "./components/control-menu/control-menu.component";
-
+import {HomeComponent} from './components/home/home.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HttpClientModule, PlaceholderComponent, NgIf, ControlMenuComponent],
+  imports: [RouterOutlet, HttpClientModule, PlaceholderComponent, NgIf, HomeComponent],
   providers: [ApiService],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
   newdata: any;
+  title = 'Light Up';
   onlineEvent: Observable<Event> | undefined;
   offlineEvent!: Observable<Event>;
   subscriptions: Subscription[] = [];
@@ -27,8 +26,8 @@ export class AppComponent {
   constructor(private _apiservice: ApiService) { }
 
   ngOnInit() {
-    console.log("Get data")
-    this.getData();
+    // console.log("Get data")
+    // // this.getData();
 
      this.onlineEvent = fromEvent(window, 'online');
      this.offlineEvent = fromEvent(window, 'offline');

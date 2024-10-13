@@ -11,6 +11,14 @@ def get_data():
     }
     return jsonify(data)
 
+@app.route('/api/get-devices')
+async def route_get_all_devices():
+    print("Get devices")
+    devices = await Discover.discover(username="asklas@op.pl", password="asia2002")
+    for dev in devices.values():
+        print(dev.host)
+    return devices
+
 @app.route('/api/turn-on/<ip>')
 async def turn_on(dev: Device):
     print("Try to turn on")
@@ -26,14 +34,6 @@ async def turn_off(dev: Device):
     print('Turn off the light ', dev)
     dev.turn_off()
     await dev.update()
-
-@app.route('/api/get-devices')
-async def route_get_all_devices():
-    print("Get devices")
-    devices = await Discover.discover(username="asklas@op.pl", password="asia2002")
-    for dev in devices.values():
-        print(dev.host)
-    return devices
 
 @app.route('/api/set-temperature/<ip>')
 async def set_remperature(dev: Device):

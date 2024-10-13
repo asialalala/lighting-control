@@ -1,3 +1,49 @@
 .no-display {
     display: none;
 }
+
+.light-header {
+    background-color: var(--second-accent-color);
+    padding: 20px;
+    border-bottom: 2px solid var(--accent-color);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.brand-logo {
+    height: 90px;
+    width: auto;
+    margin-left: -15rem;
+    transition: transform 0.3s ease;
+}
+
+.header-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--accent-color);
+    margin-left: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .brand-logo {
+        margin-bottom: 10px;
+    }
+
+    .header-title {
+        font-size: 1.5rem;
+    }
+}
