@@ -1,5 +1,5 @@
-from connect_kasa import get_devices
 from flask import Flask, jsonify
+from kasa import Device, Discover
 
 # Routes
 app = Flask(__name__)
@@ -11,19 +11,25 @@ def get_data():
     }
     return jsonify(data)
 
-@app.route('/api/turn-on')
-def turn_on():
-    return 'Turn on the light'
+@app.route('/api/turn-on/<dev>')
+async def turn_on(dev: Device):
+    print('Turn on the light ', dev)
+    await dev.turn_on()
+    await dev.update()
 
-@app.route('/api/turn-off')
-def turn_off():
-    return 'Turn off the light'
+@app.route('/api/turn-off/<dev>')
+async def turn_off(dev: Device):
+    print('Turn off the light ', dev)
+    dev.turn_off()
+    await dev.update()
 
 @app.route('/api/get-devices')
-async def route_get_devices():
-    print("aaa")
-    data = await get_devices()
-    return data
+async def route_get_all_devices():
+    print("Get devices")
+    devices = await Discover.discover(username="asklas@op.pl", password="asia2002")
+    for dev in devices.values():
+        print(dev.host)
+    return devices
 
 if __name__ == '__main__':
     app.run()

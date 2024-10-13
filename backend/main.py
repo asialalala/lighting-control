@@ -4,7 +4,7 @@ from kasa import Discover
 from routs import *
 
 async def main():
-    await route_get_devices()
+    devices = await route_get_all_devices()
     #     await dev.turn_on()
     # time.sleep(5)
     # for dev in devices.values():
