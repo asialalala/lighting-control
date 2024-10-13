@@ -6,11 +6,12 @@ import { ApiService } from './services/api.service';
 import { error } from 'node:console';
 import { Observable, Subscription, fromEvent } from 'rxjs';
 import { PlaceholderComponent } from "./components/placeholder/placeholder.component";
+import { ControlMenuComponent } from "./components/control-menu/control-menu.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HttpClientModule, PlaceholderComponent, NgIf],
+  imports: [RouterOutlet, HttpClientModule, PlaceholderComponent, NgIf, ControlMenuComponent],
   providers: [ApiService],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
