@@ -1,19 +1,16 @@
 import asyncio
 import time
 from kasa import Discover
+from routs import *
 
 async def main():
-    devices = await Discover.discover(username="asklas@op.pl", password="asia2002")
-    for dev in devices.values():
-        await dev.update()
-        print(dev.host)
-        await dev.turn_on()
-    time.sleep(5)
-    for dev in devices.values():
-        await dev.update()
-        print(dev.host)
-        await dev.turn_off()
-
+    await route_get_devices()
+    #     await dev.turn_on()
+    # time.sleep(5)
+    # for dev in devices.values():
+    #     await dev.update()
+    #     print(dev.host)
+    #     await dev.turn_off()
 
 if __name__=="__main__":
     try:
