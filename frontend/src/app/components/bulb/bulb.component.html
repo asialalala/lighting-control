@@ -1,6 +1,7 @@
-<section class="listing">
-    <img class="listing-photo" [src]="bulb.photo" alt="Exterior photo of {{ bulb.hue }}"
-        crossorigin />
-    <h2 class="listing-heading">{{ bulb.ip }}</h2>
-    <p class="listing-location">{{ bulb.id }}, {{ bulb.saturation }}</p>
-</section>
+<a [routerLink]="['/details', bulb.id]">
+    <section class="listing">
+        <img class="listing-photo" [src]="bulb.photo" alt="Exterior photo of {{ bulb.hue }}" crossorigin />
+        <h2 class="listing-heading">{{ bulb.ip }}</h2>
+        <p class="listing-location">{{ bulb.id }}, {{ bulb.saturation }}</p>
+    </section>
+</a>

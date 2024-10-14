@@ -1,0 +1,20 @@
+<article>
+    <img
+      class="listing-photo"
+      [src]="bulb?.photo"
+      alt="Exterior photo of {{ bulb?.id }}"
+      crossorigin
+    />
+    <section class="listing-description">
+      <h2 class="listing-heading">{{ bulb?.id }}</h2>
+      <p class="listing-location">{{ bulb?.id }}, {{ bulb?.id }}</p>
+    </section>
+    <section class="listing-features">
+      <h2 class="section-heading">About this housing location</h2>
+      <ul>
+        <li>Units available: {{ bulb?.id }}</li>
+        <li>Does this location have wifi: {{ bulb?.id }}</li>
+        <li>Does this location have laundry: {{ bulb?.id }}</li>
+      </ul>
+    </section>
+  </article>

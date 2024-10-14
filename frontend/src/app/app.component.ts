@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
-import {NgIf} from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { NgIf } from '@angular/common';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ApiService } from './services/api.service';
 import { Observable, Subscription, fromEvent } from 'rxjs';
 import { PlaceholderComponent } from "./components/placeholder/placeholder.component";
-import {HomeComponent} from './components/home/home.component';
+import { HomeComponent } from './components/home/home.component';
+import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HttpClientModule, PlaceholderComponent, NgIf, HomeComponent],
+  imports: [RouterOutlet, HttpClientModule, PlaceholderComponent, NgIf, HomeComponent, RouterModule, RouterLink, RouterOutlet],
   providers: [ApiService],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
@@ -29,20 +30,20 @@ export class AppComponent {
     // console.log("Get data")
     // // this.getData();
 
-     this.onlineEvent = fromEvent(window, 'online');
-     this.offlineEvent = fromEvent(window, 'offline');
+    this.onlineEvent = fromEvent(window, 'online');
+    this.offlineEvent = fromEvent(window, 'offline');
 
-     this.subscriptions.push(this.onlineEvent.subscribe(e => {
-       this.connectionStatusMessage = 'Back to online';
-       this.connectionStatus = 'online';
-       console.log('Online...');
-     }));
+    this.subscriptions.push(this.onlineEvent.subscribe(e => {
+      this.connectionStatusMessage = 'Back to online';
+      this.connectionStatus = 'online';
+      console.log('Online...');
+    }));
 
-     this.subscriptions.push(this.offlineEvent.subscribe(e => {
-       this.connectionStatusMessage = 'Connection lost! You are not connected to internet';
-       this.connectionStatus = 'offline';
-       console.log('Offline...');
-     }));
+    this.subscriptions.push(this.offlineEvent.subscribe(e => {
+      this.connectionStatusMessage = 'Connection lost! You are not connected to internet';
+      this.connectionStatus = 'offline';
+      console.log('Offline...');
+    }));
   }
 
   getData() {

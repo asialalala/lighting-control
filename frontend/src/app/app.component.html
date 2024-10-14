@@ -1,17 +1,19 @@
 <main>
-   <header class="light-header">
-      <div class="header-container">
-        <img class="brand-logo" src="/assets/images/light.png" alt="logo" aria-hidden="true" />
-        <h1 class="header-title">{{ title }}</h1>
-      </div>
-    </header>
+   <a [routerLink]="['/']">
+      <header class="light-header">
+         <div class="header-container">
+            <img class="brand-logo" src="/assets/images/light.png" alt="logo" aria-hidden="true" />
+            <h1 class="header-title">{{ title }}</h1>
+         </div>
+      </header>
+   </a>
    <ng-container *ngIf="connectionStatus!=='offline'; else lostConnection">
       <section class="content">
-         <app-home></app-home>
+         <router-outlet></router-outlet>
       </section>
    </ng-container>
 
- </main>
+</main>
 
 <ng-template #lostConnection>
    <app-placeholder [image]="'/assets/images/lost-connection.png'" [title]="'No Internet'"

@@ -24,6 +24,10 @@
     transition: transform 0.3s ease;
 }
 
+.listing:hover {
+    transform: scale(1.1);
+  }
+  
 .header-title {
     font-size: 2rem;
     font-weight: bold;
