@@ -1,62 +1,97 @@
 .listing-photo {
-    height: 600px;
-    width: 50%;
-    object-fit: cover;
-    border-radius: 30px;
-    float: right;
+  height: 600px;
+  width: 50%;
+  object-fit: cover;
+  border-radius: 30px;
+  float: right;
+}
+
+.listing-heading {
+  font-size: 48pt;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.listing-location::before {
+  content: url('/assets/location-pin.svg') / '';
+}
+
+.listing-location {
+  font-size: 24pt;
+  margin-bottom: 15px;
+}
+
+.listing-features>.section-heading {
+  color: var(--secondary-color);
+  font-size: 24pt;
+  margin-bottom: 15px;
+}
+
+.listing-features {
+  margin-bottom: 20px;
+}
+
+.listing-features li {
+  font-size: 14pt;
+}
+
+li {
+  list-style-type: none;
+}
+
+.listing-apply .section-heading {
+  font-size: 18pt;
+  margin-bottom: 15px;
+}
+
+section.listing-apply {
+  margin-bottom: 40px;
+}
+
+section.listing-apply:last-child {
+  margin-bottom: 0;
+}
+
+label,
+input {
+  display: block;
+}
+
+label {
+  color: var(--secondary-color);
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 12pt;
+}
+
+input {
+  font-size: 16pt;
+  margin-bottom: 15px;
+  padding: 10px;
+  width: 400px;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-bottom: solid .3px;
+}
+
+@media (max-width: 1024px) {
+  .listing-photo {
+    width: 100%;
+    height: 400px;
   }
-  .listing-heading {
-    font-size: 48pt;
-    font-weight: bold;
-    margin-bottom: 15px;
-  }
-  .listing-location::before {
-    content: url('/assets/location-pin.svg') / '';
-  }
-  .listing-location {
-    font-size: 24pt;
-    margin-bottom: 15px;
-  }
-  .listing-features > .section-heading {
-    color: var(--secondary-color);
-    font-size: 24pt;
-    margin-bottom: 15px;
-  }
-  .listing-features {
-    margin-bottom: 20px;
-  }
-  .listing-features li {
-    font-size: 14pt;
-  }
-  li {
-    list-style-type: none;
-  }
-  .listing-apply .section-heading {
-    font-size: 18pt;
-    margin-bottom: 15px;
-  }
-  label, input {
-    display: block;
-  }
-  label {
-    color: var(--secondary-color);
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 12pt;
-  }
-  input {
-    font-size: 16pt;
-    margin-bottom: 15px;
-    padding: 10px;
-    width: 400px;
-    border-top: none;
-    border-right: none;
-    border-left: none;
-    border-bottom: solid .3px;
-  }
-  @media (max-width: 1024px) {
-    .listing-photo {
-      width: 100%;
-      height: 400px;
-    }
-  }
+}
+
+button.primary {
+  background-color: var(--second-accent-color);
+  color: white;
+  padding: 12px 24px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+button.primary:active {
+  background-color: var(--accent-color);
+}
