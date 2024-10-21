@@ -1,6 +1,8 @@
 import string
 from flask import Flask, jsonify, request
-from kasa import Device, Discover, Module
+from kasa import Device, Discover, Module, Credentials
+
+creds = Credentials("asklas@op.pl", "asia2002")
 
 # Routes
 app = Flask(__name__)
@@ -15,7 +17,7 @@ def get_data():
 @app.route('/api/get-devices')
 async def route_get_all_devices():
     print("Get devices")
-    devices = await Discover.discover(username="asklas@op.pl", password="asia2002")
+    devices = await Discover.discover(credentials = creds)
     for dev in devices.values():
         print(dev.host)
     return devices
@@ -23,7 +25,7 @@ async def route_get_all_devices():
 @app.route('/api/turn-on/<ip>')
 async def route_turn_on(ip: string):
     print("Try to turn on")
-    dev = await Discover.discover_single(ip, username="asklas@op.pl", password="asia2002")
+    dev = await Discover.discover_single(ip, credentials = creds)
     print('Turn on the light in device', dev.modules)
     await dev.turn_on()
     await dev.update()
@@ -31,7 +33,7 @@ async def route_turn_on(ip: string):
 @app.route('/api/turn-off/<ip>')
 async def route_turn_off(ip: string):
     print("Try to turn off")
-    dev = await Discover.discover_single(ip, username="asklas@op.pl", password="asia2002")
+    dev = await Discover.discover_single(ip, credentials = creds)
     print('Turn off the light in device', "{ip}")
     await dev.turn_off()
     await dev.update()
@@ -41,7 +43,7 @@ async def route_set_temperature():
     print("Try to set temperature")
     data = request.form
     temp = data['temperature']
-    dev = await Discover.discover_single("{ip}", username="asklas@op.pl", password="asia2002")
+    dev = await Discover.discover_single("{ip}", credentials = creds)
     await dev.update()
     print('Set temperature in device ', "{ip}")
     if light := dev.modules.get("Light"):
@@ -55,7 +57,7 @@ async def route_set_temperature():
 @app.route('/api/set-colour/<ip>', methods=['POST'])
 async def route_set_colour():
     print("Try to set colour")
-    dev = await Discover.discover_single("{ip}", username="asklas@op.pl", password="asia2002")
+    dev = await Discover.discover_single("{ip}", credentials = creds)
     await dev.update()
     print('Set colour in device', "{ip}")
     data = request.form
@@ -75,7 +77,7 @@ async def route_set_colour():
 @app.route('/api/set-brightness/<ip>', methods=['POST'])
 async def route_set_brightness():
     print("Try to set brightness")
-    dev = await Discover.discover_single("{ip}", username="asklas@op.pl", password="asia2002")
+    dev = await Discover.discover_single("{ip}", credentials = creds)
     await dev.update()
     print('Set brightness on device', "{ip}")
     data = request.form
