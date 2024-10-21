@@ -23,16 +23,16 @@ async def route_get_all_devices():
 @app.route('/api/turn-on/<ip>')
 async def turn_on():
     print("Try to turn on")
-    dev = await Discover.discover_single(ip, username="asklas@op.pl", password="asia2002")
-    print('Turn on the light in device', ip)
+    dev = await Discover.discover_single("{ip}", username="asklas@op.pl", password="asia2002")
+    print('Turn on the light in device', "{ip}")
     await dev.turn_on()
     await dev.update()
 
 @app.route('/api/turn-off/<ip>')
 async def turn_off():
     print("Try to turn off")
-    dev = await Discover.discover_single(ip, username="asklas@op.pl", password="asia2002")
-    print('Turn off the light in device', ip)
+    dev = await Discover.discover_single("{ip}", username="asklas@op.pl", password="asia2002")
+    print('Turn off the light in device', "{ip}")
     await dev.turn_off()
     await dev.update()
 
