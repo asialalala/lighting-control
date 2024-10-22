@@ -8,8 +8,4 @@ if __name__=="__main__":
         app.run()
     except Exception as e:
         print(f"An error occurred: {e}")
-    # finally:
-    #     # Explicitly close all running event loops (if any)
-    #     loop = asyncio.get_event_loop()
-    #     loop.run_until_complete(loop.shutdown_asyncgens())
-    #     loop.close()
+        
