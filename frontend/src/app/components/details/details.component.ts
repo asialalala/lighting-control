@@ -17,10 +17,19 @@ export class DetailsComponent {
   route: ActivatedRoute = inject(ActivatedRoute);
   bulb: Bulb | undefined;
   bulbService = inject(BulbService)
-  applyForm = new FormGroup({
-    firstName: new FormControl(''),
-    lastName: new FormControl(''),
-    email: new FormControl(''),
+
+  brightnessForm = new FormGroup({
+    brightness: new FormControl(''),
+  });
+
+  temperatureForm = new FormGroup({
+    temperature: new FormControl(''),
+  });
+
+  colorForm = new FormGroup({
+    hue: new FormControl(''),
+    saturation: new FormControl(''),
+    value: new FormControl(''),
   });
 
   constructor() {
@@ -28,11 +37,24 @@ export class DetailsComponent {
     this.bulb = this.bulbService.getBulbById(bulbId);
   }
 
-  submitApplication() {
-    this.bulbService.submitApplication(
-      this.applyForm.value.firstName ?? '',
-      this.applyForm.value.lastName ?? '',
-      this.applyForm.value.email ?? '',
+  submitBrightness() {
+    console.log("Submit brightenss")
+    this.bulbService.submitBrightness(
+      this.brightnessForm.value.brightness ?? ''
+    );
+  }
+  submitTemperature() {
+    console.log("Submit temperature")
+    this.bulbService.submitTemperature(
+      this.temperatureForm.value.temperature ?? ''
+    );
+  }
+  submitColor() {
+    console.log("Submit color")
+    this.bulbService.submitColor(
+      this.colorForm.value.hue ?? '',
+      this.colorForm.value.saturation ?? '',
+      this.colorForm.value.value ?? '',
     );
   }
 

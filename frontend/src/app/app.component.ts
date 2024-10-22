@@ -7,11 +7,12 @@ import { Observable, Subscription, fromEvent } from 'rxjs';
 import { PlaceholderComponent } from "./components/placeholder/placeholder.component";
 import { HomeComponent } from './components/home/home.component';
 import { RouterModule } from '@angular/router';
+import { BulbService } from './services/bulb.service';
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, HttpClientModule, PlaceholderComponent, NgIf, HomeComponent, RouterModule, RouterLink, RouterOutlet],
-  providers: [ApiService],
+  providers: [ApiService, BulbService],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
