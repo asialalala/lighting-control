@@ -19,21 +19,21 @@
     </section>
     <section class="listing-apply">
         <h2 class="section-heading">Apply now seting</h2>
-        <form [formGroup]="brightnessForm" (submit)="submitBrightness()">
+        <form [formGroup]="applyForm" (submit)="submitApplication()">
           <label for="brightness">Brightness</label>
           <input id="brightness" type="number" formControlName="brightness" min="1" max="100" />
           <button type="submit" class="primary">Apply now</button>
         </form>
     </section>
     <section class="listing-apply">
-        <form [formGroup]="temperatureForm" (submit)="submitTemperature()">
+        <form [formGroup]="applyForm" (submit)="submitApplication()">
           <label for="temperature">Temperature</label>
           <input id="temperature" type="number" formControlName="temperature" min="1" max="100" />
           <button type="submit" class="primary">Apply now</button>
         </form>
     </section>
     <section class="listing-apply">
-        <form [formGroup]="colorForm" (submit)="submitColor()">
+        <form [formGroup]="applyForm" (submit)="submitApplication()">
           <label for="hue">Hue</label>
           <input id="hue" type="number" formControlName="hue" min="1" max="100" />
           <label for="saturation">Satyration</label>
