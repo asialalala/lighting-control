@@ -31,20 +31,20 @@ export class AppComponent {
     // console.log("Get data")
     // // this.getData();
 
-    this.onlineEvent = fromEvent(window, 'online');
-    this.offlineEvent = fromEvent(window, 'offline');
+    // this.onlineEvent = fromEvent(window, 'online');
+    // this.offlineEvent = fromEvent(window, 'offline');
 
-    this.subscriptions.push(this.onlineEvent.subscribe(e => {
-      this.connectionStatusMessage = 'Back to online';
-      this.connectionStatus = 'online';
-      console.log('Online...');
-    }));
+    // this.subscriptions.push(this.onlineEvent.subscribe(e => {
+    //   this.connectionStatusMessage = 'Back to online';
+    //   this.connectionStatus = 'online';
+    //   console.log('Online...');
+    // }));
 
-    this.subscriptions.push(this.offlineEvent.subscribe(e => {
-      this.connectionStatusMessage = 'Connection lost! You are not connected to internet';
-      this.connectionStatus = 'offline';
-      console.log('Offline...');
-    }));
+    // this.subscriptions.push(this.offlineEvent.subscribe(e => {
+    //   this.connectionStatusMessage = 'Connection lost! You are not connected to internet';
+    //   this.connectionStatus = 'offline';
+    //   console.log('Offline...');
+    // }));
   }
 
   getData() {

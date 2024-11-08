@@ -58,4 +58,9 @@ export class DetailsComponent {
     );
   }
 
+  getParameters() {
+    console.log("Get parameters")
+    this.bulbService.getParameters();
+  }
+
 }

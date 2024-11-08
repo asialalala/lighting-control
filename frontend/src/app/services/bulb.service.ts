@@ -123,4 +123,18 @@ export class BulbService {
       }
     )
   }
+
+  async getParameters() {
+    console.log("Get properties");
+   (await this.apiService.getParameters("192.168.101.9")).subscribe(
+    (response) => {
+      const data = response; 
+      console.log("Data: ", data);
+    },
+    (error) => {
+      console.log("Error while getting properties")
+    }
+   )
+    
+  }
 }

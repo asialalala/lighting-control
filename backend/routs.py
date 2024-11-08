@@ -1,11 +1,15 @@
 import string
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 from kasa import Device, Discover, Module, Credentials
+from models import DeviceParameters
 
 creds = Credentials("asklas@op.pl", "asia2002")
 
 # Routes
 app = Flask(__name__)
+CORS(app)
+
 @app.route('/api/data')
 def get_data():
     data = {
@@ -89,6 +93,19 @@ async def route_set_brightness():
         await dev.update()
     else:
         print("Unable to set brightness in this device.")
+
+@app.route('/api/get-parameters/<ip>')
+async def route_get_parameters(ip: str) -> dict:
+    print("Try get parameters")
+    # dev = await Discover.discover_single(ip, credentials=creds)
+    # print('Get parameters from device')
+    
+    response = {
+        "voltage": "5",
+        "current":"6",
+        "power":"2"
+    }
+    return response
 
 if __name__ == '__main__':
     app.run()

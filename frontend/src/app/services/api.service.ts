@@ -1,5 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { error } from "node:console";
+import { Observable } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -81,5 +83,9 @@ export class ApiService {
     }
   }
 
+  async getParameters(ip: string) : Promise<Observable<{ current: number; power: number; voltage: number; }>> {
+
+      return await this._http.get<{ current: number; power: number; voltage: number; }>(`http://127.0.0.1:5000/api/get-parameters/${ip}`);
+  }
 
 }
