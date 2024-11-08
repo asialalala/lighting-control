@@ -5,11 +5,12 @@ import { BulbComponent } from '../bulb/bulb.component';
 import { Bulb } from '../../models/bulb';
 import { BulbService } from '../../services/bulb.service';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MyChartComponent } from '../chart/my-chart.component';
 
 @Component({
   selector: 'app-details',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, MyChartComponent],
   templateUrl: './details.component.html',
   styleUrl: './details.component.css'
 })

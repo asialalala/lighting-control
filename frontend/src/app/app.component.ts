@@ -8,10 +8,13 @@ import { PlaceholderComponent } from "./components/placeholder/placeholder.compo
 import { HomeComponent } from './components/home/home.component';
 import { RouterModule } from '@angular/router';
 import { BulbService } from './services/bulb.service';
+import { NgApexchartsModule } from 'ng-apexcharts';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HttpClientModule, PlaceholderComponent, NgIf, HomeComponent, RouterModule, RouterLink, RouterOutlet],
+  imports: [RouterOutlet, HttpClientModule, PlaceholderComponent, NgIf, HomeComponent, 
+    RouterModule, RouterLink, RouterOutlet, 
+    NgApexchartsModule],
   providers: [ApiService, BulbService],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
