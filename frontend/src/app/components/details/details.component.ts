@@ -1,4 +1,4 @@
-import { ApplicationRef, Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ApplicationRef, ChangeDetectorRef, Component, inject, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { BulbComponent } from '../bulb/bulb.component';
@@ -7,6 +7,7 @@ import { BulbService } from '../../services/bulb.service';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MyChartComponent } from '../chart/my-chart.component';
 import { first } from 'rxjs';
+import { Parameters } from '../../models/parameters';
 
 @Component({
   selector: 'app-details',
@@ -19,7 +20,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
   route: ActivatedRoute = inject(ActivatedRoute);
   bulb: Bulb | undefined;
   bulbService = inject(BulbService);
-  parameters: any[] = [];
+  public parameters: Parameters = new Parameters;
   private intervalId: any;
   private intervalDuration: number = 10000;
 
@@ -37,7 +38,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
     value: new FormControl(''),
   });
 
-  constructor(private applicationRef: ApplicationRef) {
+  constructor(private applicationRef: ApplicationRef, private cdr: ChangeDetectorRef) {
     const bulbId = Number(this.route.snapshot.params['id']);
     this.bulb = this.bulbService.getBulbById(bulbId);
   }
@@ -49,13 +50,14 @@ export class DetailsComponent implements OnInit, OnDestroy {
         this.getParameters();
       }, this.intervalDuration)
     });
-  } 
+  }
 
   ngOnDestroy(): void {
     if (this.intervalId) {
       clearInterval(this.intervalId);
     }
   }
+
 
   submitBrightness() {
     console.log("Submit brightenss")
@@ -83,10 +85,20 @@ export class DetailsComponent implements OnInit, OnDestroy {
     try {
       const data = await this.bulbService.getParameters();
       console.log("Data in details: ", data);
-      this.parameters.push(data);
+      this.parameters = {
+        ...this.parameters, current: data.current,
+        voltage: data.voltage,
+        power: data.power,
+        hue: data.hue,
+        saturation: data.saturation,
+        value: data.value,
+        temperature : data.temperature,
+        brightness : data.brightness
+
+      };
+      this.cdr.detectChanges();
     } catch (error) {
       console.log("Error in DetailsComponent:", error);
     }
   }
-
 }

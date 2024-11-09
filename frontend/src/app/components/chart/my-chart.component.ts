@@ -1,6 +1,6 @@
-import { Component, ViewChild } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
+import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { Parameters } from '../../models/parameters';
+
 import {
   ApexAxisChartSeries,
   ApexTitleSubtitle,
@@ -39,8 +39,10 @@ export type ChartOptions = {
   templateUrl: './my-chart.component.html',
   styleUrl: './my-chart.component.css'
 })
-export class MyChartComponent {
+export class MyChartComponent implements OnChanges{
   @ViewChild("chart") chart: ChartComponent | undefined;
+
+  @Input() parameters!: Parameters;
 
   voltage: number[] = [1,1,1,1,1,1,1,2,2,2,3,3,3,3];
   current: number[] = [1,1,1,1,1,1,1,2,2,2,3,3,3,3];
@@ -51,6 +53,12 @@ export class MyChartComponent {
   saturation: number[] = [1,1,1,1,1,1,1,2,2,2,3,3,3,3];
   value: number[] = [1,1,1,1,1,1,1,2,2,2,3,3,3,3];
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['parameters']) {
+      console.log('Zmiana w parameters:', changes['parameters'].currentValue);
+    }
+  }
+  
   public chart1options: Partial<ChartOptions>;
   public chart2options: Partial<ChartOptions>;
   public chart3options: Partial<ChartOptions>;
