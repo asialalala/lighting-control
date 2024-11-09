@@ -51,7 +51,7 @@ export class ApiService {
   async setTemperature(ip: string, temperature: number) {
     try {
       const body = { temperature: `${temperature}` };
-      const data = await this._http.put<any>(`http://127.0.0.1:5000/api/set-temperature/${ip}`, body);
+      const data = await this._http.post<any>(`http://127.0.0.1:5000/api/set-temperature/${ip}`, body).toPromise();
       console.log("setTemperature data: ", data);
       return data;
     } catch (error) {
@@ -63,7 +63,7 @@ export class ApiService {
   async setColour(ip: string, hue: number, saturation: number, value: number) {
     try {
       const body = { hue: `${hue}`, saturation: `${saturation}`, value: `${value}` };
-      const data = await this._http.put(`http://127.0.0.1:5000/api/set-colour/${ip}`, body);
+      const data = await this._http.post(`http://127.0.0.1:5000/api/set-colour/${ip}`, body).toPromise();
       console.log("setColour data: ", data);
       return data;
     } catch (error) {
@@ -74,8 +74,10 @@ export class ApiService {
 
   async setBrightness(ip: string, brightness: number) {
     try {
-      const body = { brightness: `${brightness}`};
-      const data = await this._http.get(`http://127.0.0.1:5000/api/set-brightness/${ip}`);
+      const body = { brightness: `${brightness}` };
+      const data = await this._http.post(
+        `http://127.0.0.1:5000/api/set-brightness/${ip}`, 
+        body).toPromise();
       console.log("setBrightness data: ", data);
       return data;
     } catch (error) {
@@ -85,7 +87,6 @@ export class ApiService {
   }
 
   async getParameters(ip: string) : Promise<Observable<Parameters>> {
-
       return await this._http.get<Parameters>(`http://127.0.0.1:5000/api/get-parameters/${ip}`);
   }
 

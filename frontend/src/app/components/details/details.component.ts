@@ -44,18 +44,18 @@ export class DetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // run this code after the application is stable
-    this.applicationRef.isStable.pipe(first((isStable) => isStable)).subscribe(() => {
-      this.intervalId = setInterval(() => {
-        this.getParameters();
-      }, this.intervalDuration)
-    });
+    // // run this code after the application is stable
+    // this.applicationRef.isStable.pipe(first((isStable) => isStable)).subscribe(() => {
+    //   this.intervalId = setInterval(() => {
+    //     this.getParameters();
+    //   }, this.intervalDuration)
+    // });
   }
 
   ngOnDestroy(): void {
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
-    }
+    // if (this.intervalId) {
+    //   clearInterval(this.intervalId);
+    // }
   }
 
 

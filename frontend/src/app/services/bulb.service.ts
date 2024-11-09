@@ -8,6 +8,7 @@ import { lastValueFrom } from 'rxjs';
 })
 export class BulbService {
 
+  ip  : string = "192.168.8.113";
   bulbList: Bulb[] = [{
     id: 1,
     ip: "123-123-123",
@@ -93,42 +94,23 @@ export class BulbService {
 
   async submitBrightness(brightness: string) {
     console.log("Submit brightness");
-    (await this.apiService.setBrightness("192.168.101.9", Number(brightness))).subscribe(
-      res => {
-        console.log("Res:", res);
-      },
-      error => {
-        console.error('Error setting brightness: ', error);
-      })
+    await this.apiService.setBrightness("192.168.8.113", Number(brightness))
   }
 
   async submitTemperature(temperature: string) {
     console.log("Submit temperature");
-    (await this.apiService.setTemperature("192.168.101.9", Number(temperature))).subscribe(
-      res => {
-        console.log("Res: ", res);
-      },
-      error => {
-        console.error('Error setting temperatur: ', error)
-      })
+    await this.apiService.setTemperature("192.168.8.113", Number(temperature))
   }
 
   async submitColor(hue: string, saturation: string, value: string) {
     console.log("Submit color");
-    (await this.apiService.setColour("192.168.101.9", Number(hue), Number(saturation), Number(value))).subscribe(
-      res => {
-        console.log("Res: ", res);
-      },
-      error => {
-        console.error('Error setting color: ', error)
-      }
-    )
+    await this.apiService.setColour("192.168.8.113", Number(hue), Number(saturation), Number(value))
   }
 
   async getParameters() {
     console.log("Get properties from API");
     try {
-      const response = await lastValueFrom(await this.apiService.getParameters("192.168.101.9"));
+      const response = await lastValueFrom(await this.apiService.getParameters("192.168.8.113"));
       console.log("Data in bulbService: ", response);
       return response;
     } catch (error) {
