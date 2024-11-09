@@ -17,7 +17,8 @@ import { MyChartComponent } from '../chart/my-chart.component';
 export class DetailsComponent {
   route: ActivatedRoute = inject(ActivatedRoute);
   bulb: Bulb | undefined;
-  bulbService = inject(BulbService)
+  bulbService = inject(BulbService);
+  parameters: any[] = [];
 
   brightnessForm = new FormGroup({
     brightness: new FormControl(''),
@@ -59,9 +60,15 @@ export class DetailsComponent {
     );
   }
 
-  getParameters() {
-    console.log("Get parameters")
-    this.bulbService.getParameters();
+  async getParameters() {
+    console.log("Get parameters in DetailsComponent");
+    try {
+      const data = await this.bulbService.getParameters();
+      console.log("Data in details: ", data);
+      this.parameters.push(data); 
+    } catch (error) {
+      console.log("Error in DetailsComponent:", error);
+    }
   }
 
 }

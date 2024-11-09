@@ -1,12 +1,13 @@
 import { inject, Injectable } from '@angular/core';
 import { Bulb } from '../models/bulb';
 import { ApiService } from './api.service';
+import { lastValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BulbService {
-  
+
   bulbList: Bulb[] = [{
     id: 1,
     ip: "123-123-123",
@@ -80,8 +81,8 @@ export class BulbService {
     temperature: 33,
     photo: `../../../assets/images/light.png`,
   }];
-  
-  constructor(private apiService: ApiService) { this.apiService = apiService}
+
+  constructor(private apiService: ApiService) { this.apiService = apiService }
 
   getAllBulbs(): Bulb[] {
     return this.bulbList;
@@ -114,9 +115,9 @@ export class BulbService {
 
   async submitColor(hue: string, saturation: string, value: string) {
     console.log("Submit color");
-    (await this.apiService.setColour("192.168.101.9",Number(hue), Number(saturation), Number(value) )).subscribe(
+    (await this.apiService.setColour("192.168.101.9", Number(hue), Number(saturation), Number(value))).subscribe(
       res => {
-        console.log("Res: ", res );
+        console.log("Res: ", res);
       },
       error => {
         console.error('Error setting color: ', error)
@@ -125,16 +126,14 @@ export class BulbService {
   }
 
   async getParameters() {
-    console.log("Get properties");
-   (await this.apiService.getParameters("192.168.101.9")).subscribe(
-    (response) => {
-      const data = response; 
-      console.log("Data: ", data);
-    },
-    (error) => {
-      console.log("Error while getting properties")
+    console.log("Get properties from API");
+    try {
+      const response = await lastValueFrom(await this.apiService.getParameters("192.168.101.9"));
+      console.log("Data in bulbService: ", response);
+      return response;
+    } catch (error) {
+      console.log("Error while getting properties", error);
+      throw error;
     }
-   )
-    
   }
 }
