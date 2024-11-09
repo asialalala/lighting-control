@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ApplicationRef, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { BulbComponent } from '../bulb/bulb.component';
@@ -6,6 +6,7 @@ import { Bulb } from '../../models/bulb';
 import { BulbService } from '../../services/bulb.service';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MyChartComponent } from '../chart/my-chart.component';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'app-details',
@@ -14,11 +15,13 @@ import { MyChartComponent } from '../chart/my-chart.component';
   templateUrl: './details.component.html',
   styleUrl: './details.component.css'
 })
-export class DetailsComponent {
+export class DetailsComponent implements OnInit, OnDestroy {
   route: ActivatedRoute = inject(ActivatedRoute);
   bulb: Bulb | undefined;
   bulbService = inject(BulbService);
   parameters: any[] = [];
+  private intervalId: any;
+  private intervalDuration: number = 10000;
 
   brightnessForm = new FormGroup({
     brightness: new FormControl(''),
@@ -34,9 +37,24 @@ export class DetailsComponent {
     value: new FormControl(''),
   });
 
-  constructor() {
+  constructor(private applicationRef: ApplicationRef) {
     const bulbId = Number(this.route.snapshot.params['id']);
     this.bulb = this.bulbService.getBulbById(bulbId);
+  }
+
+  ngOnInit(): void {
+    // run this code after the application is stable
+    this.applicationRef.isStable.pipe(first((isStable) => isStable)).subscribe(() => {
+      this.intervalId = setInterval(() => {
+        this.getParameters();
+      }, this.intervalDuration)
+    });
+  } 
+
+  ngOnDestroy(): void {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
   }
 
   submitBrightness() {
@@ -65,7 +83,7 @@ export class DetailsComponent {
     try {
       const data = await this.bulbService.getParameters();
       console.log("Data in details: ", data);
-      this.parameters.push(data); 
+      this.parameters.push(data);
     } catch (error) {
       console.log("Error in DetailsComponent:", error);
     }
