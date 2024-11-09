@@ -41,10 +41,24 @@ export type ChartOptions = {
 })
 export class MyChartComponent {
   @ViewChild("chart") chart: ChartComponent | undefined;
+
+  voltage: number[] = [1,1,1,1,1,1,1,2,2,2,3,3,3,3];
+  current: number[] = [1,1,1,1,1,1,1,2,2,2,3,3,3,3];
+  power: number[] = [1,1,1,1,1,1,1,2,2,2,3,3,3,3];
+  brightness: number[] = [1,1,1,1,1,1,1,2,2,2,3,3,3,3];
+  temperature: number[] = [1,1,1,1,1,1,1,2,2,2,3,3,3,3];
+  hue: number[] = [1,1,1,1,1,1,1,2,2,2,3,3,3,3];
+  saturation: number[] = [1,1,1,1,1,1,1,2,2,2,3,3,3,3];
+  value: number[] = [1,1,1,1,1,1,1,2,2,2,3,3,3,3];
+
   public chart1options: Partial<ChartOptions>;
   public chart2options: Partial<ChartOptions>;
   public chart3options: Partial<ChartOptions>;
   public chart4options: Partial<ChartOptions>;
+  public chart5options: Partial<ChartOptions>;
+  public chart6options: Partial<ChartOptions>;
+  public chart7options: Partial<ChartOptions>;
+  public chart8options: Partial<ChartOptions>;
   public commonOptions: Partial<ChartOptions> = {
     dataLabels: {
       enabled: false
@@ -89,6 +103,14 @@ export class MyChartComponent {
   };
   
   constructor() {
+    console.log("Data ", this.generateDayWiseTimeSeries(
+      new Date("11 Feb 2017").getTime(),
+      20,
+      {
+        min: 10,
+        max: 60
+      }
+    ))
     this.chart1options = {
       title : {
         text : "Napięcie"
@@ -96,14 +118,7 @@ export class MyChartComponent {
       series: [
         {
           name: "chart1",
-          data: this.generateDayWiseTimeSeries(
-            new Date("11 Feb 2017").getTime(),
-            20,
-            {
-              min: 10,
-              max: 60
-            }
-          )
+          data: this.voltage
         }
       ],
       chart: {
@@ -128,14 +143,7 @@ export class MyChartComponent {
       series: [
         {
           name: "chart2",
-          data: this.generateDayWiseTimeSeries(
-            new Date("11 Feb 2017").getTime(),
-            20,
-            {
-              min: 10,
-              max: 30
-            }
-          )
+          data: this.current
         }
       ],
       chart: {
@@ -160,14 +168,7 @@ export class MyChartComponent {
       series: [
         {
           name: "chart3",
-          data: this.generateDayWiseTimeSeries(
-            new Date("11 Feb 2017").getTime(),
-            20,
-            {
-              min: 10,
-              max: 60
-            }
-          )
+          data: this.power
         }
       ],
       chart: {
@@ -192,14 +193,104 @@ export class MyChartComponent {
       series: [
         {
           name: "chart4",
-          data: this.generateDayWiseTimeSeries(
-            new Date("11 Feb 2017").getTime(),
-            20,
-            {
-              min: 10,
-              max: 60
-            }
-          )
+          data: this.brightness
+        }
+      ],
+      chart: {
+        id: "yt",
+        group: "social",
+        type: "area",
+        height: 300
+      },
+      colors: ["#00E396"],
+      yaxis: {
+        tickAmount: 2,
+        labels: {
+          minWidth: 40
+        }
+      }
+    };
+
+    this.chart5options = {
+      title : {
+        text : "Temperatura światła"
+      },
+      series: [
+        {
+          name: "chart3",
+          data: this.temperature
+        }
+      ],
+      chart: {
+        id: "yt",
+        group: "social",
+        type: "area",
+        height: 300
+      },
+      colors: ["#00E396"],
+      yaxis: {
+        tickAmount: 2,
+        labels: {
+          minWidth: 40
+        }
+      }
+    };
+    this.chart6options = {
+      title : {
+        text : "Wartość światła"
+      },
+      series: [
+        {
+          name: "chart3",
+          data: this.value
+        }
+      ],
+      chart: {
+        id: "yt",
+        group: "social",
+        type: "area",
+        height: 300
+      },
+      colors: ["#00E396"],
+      yaxis: {
+        tickAmount: 2,
+        labels: {
+          minWidth: 40
+        }
+      }
+    };
+    this.chart7options = {
+      title : {
+        text : "Nasycenie światła"
+      },
+      series: [
+        {
+          name: "chart3",
+          data: this.saturation
+        }
+      ],
+      chart: {
+        id: "yt",
+        group: "social",
+        type: "area",
+        height: 300
+      },
+      colors: ["#00E396"],
+      yaxis: {
+        tickAmount: 2,
+        labels: {
+          minWidth: 40
+        }
+      }
+    };
+    this.chart8options = {
+      title : {
+        text : "Odcień światła"
+      },
+      series: [
+        {
+          name: "chart3",
+          data: this.hue
         }
       ],
       chart: {
