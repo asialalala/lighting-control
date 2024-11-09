@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { Parameters } from '../../models/parameters';
+import { ParametersTab } from '../../models/parametersTab'
 
 import {
   ApexAxisChartSeries,
@@ -43,19 +44,19 @@ export class MyChartComponent implements OnChanges{
   @ViewChild("chart") chart: ChartComponent | undefined;
 
   @Input() parameters!: Parameters;
-
-  voltage: number[] = [1,1,1,1,1,1,1,2,2,2,3,3,3,3];
-  current: number[] = [1,1,1,1,1,1,1,2,2,2,3,3,3,3];
-  power: number[] = [1,1,1,1,1,1,1,2,2,2,3,3,3,3];
-  brightness: number[] = [1,1,1,1,1,1,1,2,2,2,3,3,3,3];
-  temperature: number[] = [1,1,1,1,1,1,1,2,2,2,3,3,3,3];
-  hue: number[] = [1,1,1,1,1,1,1,2,2,2,3,3,3,3];
-  saturation: number[] = [1,1,1,1,1,1,1,2,2,2,3,3,3,3];
-  value: number[] = [1,1,1,1,1,1,1,2,2,2,3,3,3,3];
+  parametersTab : ParametersTab = new ParametersTab;
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['parameters']) {
       console.log('Zmiana w parameters:', changes['parameters'].currentValue);
+      this.parametersTab.current.push(changes['parameters'].currentValue.current);
+      this.parametersTab.voltage.push(changes['parameters'].currentValue.voltage);
+      this.parametersTab.power.push(changes['parameters'].currentValue.power);
+      this.parametersTab.hue.push(changes['parameters'].currentValue.hue);
+      this.parametersTab.saturation.push(changes['parameters'].currentValue.saturation);
+      this.parametersTab.value.push(changes['parameters'].currentValue.value);
+      this.parametersTab.brightness.push(changes['parameters'].currentValue.brightness);
+      this.parametersTab.temperature.push(changes['parameters'].currentValue.temperature);
     }
   }
   
@@ -126,7 +127,7 @@ export class MyChartComponent implements OnChanges{
       series: [
         {
           name: "chart1",
-          data: this.voltage
+          data: this.parametersTab.voltage
         }
       ],
       chart: {
@@ -151,7 +152,7 @@ export class MyChartComponent implements OnChanges{
       series: [
         {
           name: "chart2",
-          data: this.current
+          data: this.parametersTab.current
         }
       ],
       chart: {
@@ -176,7 +177,7 @@ export class MyChartComponent implements OnChanges{
       series: [
         {
           name: "chart3",
-          data: this.power
+          data: this.parametersTab.power
         }
       ],
       chart: {
@@ -201,7 +202,7 @@ export class MyChartComponent implements OnChanges{
       series: [
         {
           name: "chart4",
-          data: this.brightness
+          data: this.parametersTab.brightness
         }
       ],
       chart: {
@@ -226,7 +227,7 @@ export class MyChartComponent implements OnChanges{
       series: [
         {
           name: "chart3",
-          data: this.temperature
+          data: this.parametersTab.temperature
         }
       ],
       chart: {
@@ -250,7 +251,7 @@ export class MyChartComponent implements OnChanges{
       series: [
         {
           name: "chart3",
-          data: this.value
+          data: this.parametersTab.value
         }
       ],
       chart: {
@@ -274,7 +275,7 @@ export class MyChartComponent implements OnChanges{
       series: [
         {
           name: "chart3",
-          data: this.saturation
+          data: this.parametersTab.saturation
         }
       ],
       chart: {
@@ -298,7 +299,7 @@ export class MyChartComponent implements OnChanges{
       series: [
         {
           name: "chart3",
-          data: this.hue
+          data: this.parametersTab.hue
         }
       ],
       chart: {

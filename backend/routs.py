@@ -1,3 +1,4 @@
+import random
 import string
 from flask import Flask, jsonify, request
 from flask_cors import CORS
@@ -101,9 +102,14 @@ async def route_get_parameters(ip: str) -> dict:
     # print('Get parameters from device')
     
     response = {
-        "voltage": "5",
-        "current":"6",
-        "power":"2"
+        "voltage": str(random.randint(1,5)),
+        "current": str(random.randint(1,8)),
+        "power": str(random.randint(1,9)),
+        "hue": str(random.randint(1,9)),
+        "saturation": str(random.randint(1,9)),
+        "value": str(random.randint(1,9)),
+        "brightness": str(random.randint(1,9)),
+        "temperature": str(random.randint(1,9)),
     }
     return response
 
