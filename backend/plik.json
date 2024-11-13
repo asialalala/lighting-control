@@ -9,6 +9,12 @@
                     "Value": 26.6
                 },
                 {
+                    "ValueNumber": 1,
+                    "Name": "Energy",
+                    "NrDecimals": 2,
+                    "Value": 726.7
+                },
+                {
                     "ValueNumber": 2,
                     "Name": "Current",
                     "NrDecimals": 2,

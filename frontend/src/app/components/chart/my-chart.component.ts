@@ -57,6 +57,16 @@ export class MyChartComponent implements OnChanges{
       this.parametersTab.value.push(changes['parameters'].currentValue.value);
       this.parametersTab.brightness.push(changes['parameters'].currentValue.brightness);
       this.parametersTab.temperature.push(changes['parameters'].currentValue.temperature);
+
+      // Aktualizacja serii wykresów
+    this.chart1options.series = [{ name: "chart1", data: this.parametersTab.voltage }];
+    this.chart2options.series = [{ name: "chart2", data: this.parametersTab.current }];
+    this.chart3options.series = [{ name: "chart3", data: this.parametersTab.power }];
+    this.chart4options.series = [{ name: "chart4", data: this.parametersTab.brightness }];
+    this.chart5options.series = [{ name: "chart5", data: this.parametersTab.temperature }];
+    this.chart6options.series = [{ name: "chart6", data: this.parametersTab.value }];
+    this.chart7options.series = [{ name: "chart7", data: this.parametersTab.saturation }];
+    this.chart8options.series = [{ name: "chart8", data: this.parametersTab.hue }];
     }
   }
   

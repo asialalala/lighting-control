@@ -4,7 +4,9 @@ import string
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from kasa import Device, Discover, Module, Credentials, SmartPlug
-from models import DeviceParameters
+from helpers import parse_sensor_data
+import os 
+import json
 
 creds = Credentials("asklas@op.pl", "asia2002")
 
@@ -119,58 +121,42 @@ async def route_set_brightness(ip):
 @app.route('/api/get-parameters/<ip>', methods=['GET'])
 async def route_get_parameters(ip: str) -> dict:
     print("Try get parameters")
-    # dev = await Discover.discover_single(ip, credentials=creds)
-    # print('Get parameters from device')
     
-    dev = await Discover.discover_single("192.168.8.113", credentials = creds)
+    # Get energy parameters from ESP
+    dir_path = os.path.dirname(os.path.realpath(__file__)) #Zmien to potem na przeglądarke
+    file_path = dir_path + "/plik.json"
+    with open(file_path, 'r') as file:
+        data_json = json.load(file)
+    
+    data = parse_sensor_data(data_json)
+    print("data", data)
+
+    voltage = data['Voltage']
+    current = data['Current']
+    energy = data['Energy']
+
+    
+    # Get light parameters from bulb
+    dev = await Discover.discover_single(ip, credentials=creds)
     print("emeter ", dev.has_emeter)
-    # await dev.update()
-    # dev = SmartPlug("192.168.8.113")
-    # for feature_name in dev.features:
-    #     print(feature_name)
+    await dev.update()
 
-    # for module_name in dev.modules:
-    #     print(module_name)
-
-    # usage = dev.modules["usage"]
-    # print(f"Minutes on this month: {usage.usage_this_month}")
-    # print(f"Minutes on today: {usage.usage_today}")
-
-    # if light := dev.modules.get("Light"):
-    #     brightness =  light.brightness
-    #     temperature =  light.color_temp
-    #     hsv =  light.hsv
-
-    # if volt := dev.modules.get("Energy"):
-    #     print("energy")
-    #     voltage = volt.value
-    
-    # if curr := dev.modules.get("current"):
-    #     print("current")
-    #     current = dev.current
-    #     power = dev.power
-
-    # response = {
-    #     "voltage": voltage,
-    #     "current": current,
-    #     "power": power,
-    #     "hue": hsv.hue,
-    #     "saturation": hsv.saturation,
-    #     "value": hsv.value,
-    #     "brightness": brightness,
-    #     "temperature": temperature,
-    # }
+    if light := dev.modules.get("Light"):
+        brightness =  light.brightness
+        temperature =  light.color_temp
+        hsv =  light.hsv
 
     response = {
-        "voltage": "1",
-        "current": "2",
-        "power": "3",
-        "hue": "4",
-        "saturation": "5",
-        "value": "6",
-        "brightness": "7",
-        "temperature": "5",
+        "voltage": voltage,
+        "current": current,
+        "power": energy,    #Popraw
+        "hue": hsv.hue,
+        "saturation": hsv.saturation,
+        "value": hsv.value,
+        "brightness": brightness,
+        "temperature": temperature,
     }
+
     return response
 
 if __name__ == '__main__':
