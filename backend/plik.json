@@ -1,0 +1,20 @@
+{
+    "Sensors": [
+        {
+            "TaskValues": [
+                {
+                    "ValueNumber": 1,
+                    "Name": "Voltage",
+                    "NrDecimals": 2,
+                    "Value": 26.6
+                },
+                {
+                    "ValueNumber": 2,
+                    "Name": "Current",
+                    "NrDecimals": 2,
+                    "Value": 43.1
+                }
+            ]
+        }
+    ]
+}

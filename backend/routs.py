@@ -1,3 +1,4 @@
+import asyncio
 import random
 import string
 from flask import Flask, jsonify, request
@@ -10,6 +11,16 @@ creds = Credentials("asklas@op.pl", "asia2002")
 # Routes
 app = Flask(__name__)
 CORS(app)
+
+# async def doFun():
+#     dev = await Discover.discover_single("192.168.8.113", credentials=creds)
+#     await dev.update()
+#     if cloud := dev.modules.get("Cloud"):
+#         print("cloud")
+
+#     print("after if")
+
+# asyncio.run(doFun()) 
 
 @app.route('/api/data')
 def get_data():
