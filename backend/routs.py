@@ -10,6 +10,10 @@ import json
 
 creds = Credentials("asklas@op.pl", "asia2002")
 
+voltage = 0
+current = 0
+energy = 0
+
 # Routes
 app = Flask(__name__)
 CORS(app)
@@ -122,20 +126,6 @@ async def route_set_brightness(ip):
 async def route_get_parameters(ip: str) -> dict:
     print("Try get parameters")
     
-    # Get energy parameters from ESP
-    dir_path = os.path.dirname(os.path.realpath(__file__)) #Zmien to potem na przeglądarke
-    file_path = dir_path + "/plik.json"
-    with open(file_path, 'r') as file:
-        data_json = json.load(file)
-    
-    data = parse_sensor_data(data_json)
-    print("data", data)
-
-    voltage = data['Voltage']
-    current = data['Current']
-    energy = data['Energy']
-
-    
     # Get light parameters from bulb
     dev = await Discover.discover_single(ip, credentials=creds)
     print("emeter ", dev.has_emeter)
@@ -158,6 +148,21 @@ async def route_get_parameters(ip: str) -> dict:
     }
 
     return response
+
+
+@app.route('/api/set-parameters', methods=['POST'])
+async def route_set_parameters():
+    print("Update parameters")
+    data = request.json
+    global voltage
+    voltage = int(data.get('voltage', 0))
+    global current
+    current = int(data.get('current', 0))
+    global energy
+    energy = int(data.get('energy', 0))
+    print("voltage: ", voltage, " current: ", current ," energy: ", energy)
+    return jsonify({"status": "success", "message": "Parameters set successfully"}), 200
+
 
 if __name__ == '__main__':
     app.run()
