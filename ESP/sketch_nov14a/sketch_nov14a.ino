@@ -24,7 +24,7 @@ SoftwareSerial pzemSWSerial(PZEM_RX_PIN, PZEM_TX_PIN);
 PZEM004Tv30 pzem(pzemSWSerial);
 
 unsigned long lastTime = 0;
-unsigned long timerDelay = 500;
+unsigned long timerDelay = 5000;
 
 void setup() {
   Serial.begin(115200);
@@ -44,7 +44,7 @@ void setup() {
 
 void loop() {
 
-  //Send an HTTP POST request every 10 minutes
+  //Send an HTTP POST request every 5 secund
   if ((millis() - lastTime) > timerDelay) {
 
     float voltage = pzem.voltage();
