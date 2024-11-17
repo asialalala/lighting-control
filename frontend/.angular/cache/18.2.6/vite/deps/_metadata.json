@@ -1,0 +1,79 @@
+{
+  "hash": "cbc815c6",
+  "configHash": "1de57871",
+  "lockfileHash": "2d8cddee",
+  "browserHash": "37c83520",
+  "optimized": {
+    "@angular/common": {
+      "src": "../../../../../node_modules/@angular/common/fesm2022/common.mjs",
+      "file": "@angular_common.js",
+      "fileHash": "6b354496",
+      "needsInterop": false
+    },
+    "@angular/common/http": {
+      "src": "../../../../../node_modules/@angular/common/fesm2022/http.mjs",
+      "file": "@angular_common_http.js",
+      "fileHash": "c0c0eb23",
+      "needsInterop": false
+    },
+    "@angular/core": {
+      "src": "../../../../../node_modules/@angular/core/fesm2022/core.mjs",
+      "file": "@angular_core.js",
+      "fileHash": "240259c6",
+      "needsInterop": false
+    },
+    "@angular/forms": {
+      "src": "../../../../../node_modules/@angular/forms/fesm2022/forms.mjs",
+      "file": "@angular_forms.js",
+      "fileHash": "1b0a7c69",
+      "needsInterop": false
+    },
+    "@angular/platform-browser": {
+      "src": "../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
+      "file": "@angular_platform-browser.js",
+      "fileHash": "d62fb60f",
+      "needsInterop": false
+    },
+    "@angular/router": {
+      "src": "../../../../../node_modules/@angular/router/fesm2022/router.mjs",
+      "file": "@angular_router.js",
+      "fileHash": "7690d76c",
+      "needsInterop": false
+    },
+    "ng-apexcharts": {
+      "src": "../../../../../node_modules/ng-apexcharts/fesm2022/ng-apexcharts.mjs",
+      "file": "ng-apexcharts.js",
+      "fileHash": "aea3f913",
+      "needsInterop": false
+    },
+    "rxjs": {
+      "src": "../../../../../node_modules/rxjs/dist/esm5/index.js",
+      "file": "rxjs.js",
+      "fileHash": "8951255a",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "apexcharts.common-SITCER2Q": {
+      "file": "apexcharts__common-SITCER2Q.js"
+    },
+    "chunk-CQM64VXI": {
+      "file": "chunk-CQM64VXI.js"
+    },
+    "chunk-TE3VLYL4": {
+      "file": "chunk-TE3VLYL4.js"
+    },
+    "chunk-A5Y6HCOL": {
+      "file": "chunk-A5Y6HCOL.js"
+    },
+    "chunk-SYI45RAG": {
+      "file": "chunk-SYI45RAG.js"
+    },
+    "chunk-4QHHZFHJ": {
+      "file": "chunk-4QHHZFHJ.js"
+    },
+    "chunk-3OV72XIM": {
+      "file": "chunk-3OV72XIM.js"
+    }
+  }
+}

@@ -8,5 +8,6 @@ export class ParametersTab {
     value: number[]  = [];
     brightness: number[]  = [];
     temperature: number[]  = [];
+    energy: number[] = [];
   }
   

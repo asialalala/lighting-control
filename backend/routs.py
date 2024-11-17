@@ -13,6 +13,7 @@ creds = Credentials("asklas@op.pl", "asia2002")
 voltage = 0
 current = 0
 energy = 0
+power = 0
 
 # Routes
 app = Flask(__name__)
@@ -127,8 +128,7 @@ async def route_get_parameters(ip: str) -> dict:
     print("Try get parameters")
     
     # Get light parameters from bulb
-    dev = await Discover.discover_single(ip, credentials=creds)
-    print("emeter ", dev.has_emeter)
+    dev = await Discover.discover_single(ip, credentials = creds)
     await dev.update()
 
     if light := dev.modules.get("Light"):
@@ -139,12 +139,13 @@ async def route_get_parameters(ip: str) -> dict:
     response = {
         "voltage": voltage,
         "current": current,
-        "power": energy,    #Popraw
+        "power": power,    #Popraw
         "hue": hsv.hue,
         "saturation": hsv.saturation,
         "value": hsv.value,
         "brightness": brightness,
         "temperature": temperature,
+        "energy": energy
     }
 
     return response
@@ -160,7 +161,9 @@ async def route_set_parameters():
     current = int(data.get('current', 0))
     global energy
     energy = int(data.get('energy', 0))
-    print("voltage: ", voltage, " current: ", current ," energy: ", energy)
+    global power
+    power = int(data.get('power', 0))
+    print("voltage: ", voltage, " current: ", current ," energy: ", energy, " power: ", power)
     return jsonify({"status": "success", "message": "Parameters set successfully"}), 200
 
 

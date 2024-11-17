@@ -92,7 +92,8 @@ export class DetailsComponent implements OnInit, OnDestroy {
         saturation: data.saturation,
         value: data.value,
         temperature : data.temperature,
-        brightness : data.brightness
+        brightness : data.brightness,
+        energy : data.energy
 
       };
       this.cdr.detectChanges();

@@ -36,15 +36,15 @@ export type ChartOptions = {
 @Component({
   selector: 'app-my-chart',
   standalone: true,
-  imports: [ NgApexchartsModule ],
+  imports: [NgApexchartsModule],
   templateUrl: './my-chart.component.html',
   styleUrl: './my-chart.component.css'
 })
-export class MyChartComponent implements OnChanges{
+export class MyChartComponent implements OnChanges {
   @ViewChild("chart") chart: ChartComponent | undefined;
 
   @Input() parameters!: Parameters;
-  parametersTab : ParametersTab = new ParametersTab;
+  parametersTab: ParametersTab = new ParametersTab;
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['parameters']) {
@@ -57,19 +57,21 @@ export class MyChartComponent implements OnChanges{
       this.parametersTab.value.push(changes['parameters'].currentValue.value);
       this.parametersTab.brightness.push(changes['parameters'].currentValue.brightness);
       this.parametersTab.temperature.push(changes['parameters'].currentValue.temperature);
+      this.parametersTab.energy.push(changes['parameters'].currentValue.energy);
 
       // Aktualizacja serii wykresów
-    this.chart1options.series = [{ name: "chart1", data: this.parametersTab.voltage }];
-    this.chart2options.series = [{ name: "chart2", data: this.parametersTab.current }];
-    this.chart3options.series = [{ name: "chart3", data: this.parametersTab.power }];
-    this.chart4options.series = [{ name: "chart4", data: this.parametersTab.brightness }];
-    this.chart5options.series = [{ name: "chart5", data: this.parametersTab.temperature }];
-    this.chart6options.series = [{ name: "chart6", data: this.parametersTab.value }];
-    this.chart7options.series = [{ name: "chart7", data: this.parametersTab.saturation }];
-    this.chart8options.series = [{ name: "chart8", data: this.parametersTab.hue }];
+      this.chart1options.series = [{ name: "chart1", data: this.parametersTab.voltage }];
+      this.chart2options.series = [{ name: "chart2", data: this.parametersTab.current }];
+      this.chart3options.series = [{ name: "chart3", data: this.parametersTab.power }];
+      this.chart4options.series = [{ name: "chart4", data: this.parametersTab.brightness }];
+      this.chart5options.series = [{ name: "chart5", data: this.parametersTab.temperature }];
+      this.chart6options.series = [{ name: "chart6", data: this.parametersTab.value }];
+      this.chart7options.series = [{ name: "chart7", data: this.parametersTab.saturation }];
+      this.chart8options.series = [{ name: "chart8", data: this.parametersTab.hue }];
+      this.chart9options.series = [{ name: "chart9", data: this.parametersTab.energy }];
     }
   }
-  
+
   public chart1options: Partial<ChartOptions>;
   public chart2options: Partial<ChartOptions>;
   public chart3options: Partial<ChartOptions>;
@@ -78,6 +80,7 @@ export class MyChartComponent implements OnChanges{
   public chart6options: Partial<ChartOptions>;
   public chart7options: Partial<ChartOptions>;
   public chart8options: Partial<ChartOptions>;
+  public chart9options: Partial<ChartOptions>;
   public commonOptions: Partial<ChartOptions> = {
     dataLabels: {
       enabled: false
@@ -107,7 +110,7 @@ export class MyChartComponent implements OnChanges{
       },
       y: {
         title: {
-          formatter: function() {
+          formatter: function () {
             return "aaaa";
           }
         }
@@ -120,7 +123,7 @@ export class MyChartComponent implements OnChanges{
       type: "datetime"
     }
   };
-  
+
   constructor() {
     console.log("Data ", this.generateDayWiseTimeSeries(
       new Date("11 Feb 2017").getTime(),
@@ -131,8 +134,8 @@ export class MyChartComponent implements OnChanges{
       }
     ))
     this.chart1options = {
-      title : {
-        text : "Napięcie"
+      title: {
+        text: "Napięcie"
       },
       series: [
         {
@@ -156,8 +159,8 @@ export class MyChartComponent implements OnChanges{
     };
 
     this.chart2options = {
-      title : {
-        text : "Zużycie prądu"
+      title: {
+        text: "Zużycie prądu"
       },
       series: [
         {
@@ -181,8 +184,8 @@ export class MyChartComponent implements OnChanges{
     };
 
     this.chart3options = {
-      title : {
-        text : "Zużycie mocy"
+      title: {
+        text: "Zużycie mocy"
       },
       series: [
         {
@@ -206,8 +209,8 @@ export class MyChartComponent implements OnChanges{
     };
 
     this.chart4options = {
-      title : {
-        text : "Jasność żarówki"
+      title: {
+        text: "Jasność żarówki"
       },
       series: [
         {
@@ -231,8 +234,8 @@ export class MyChartComponent implements OnChanges{
     };
 
     this.chart5options = {
-      title : {
-        text : "Temperatura światła"
+      title: {
+        text: "Temperatura światła"
       },
       series: [
         {
@@ -255,8 +258,8 @@ export class MyChartComponent implements OnChanges{
       }
     };
     this.chart6options = {
-      title : {
-        text : "Wartość światła"
+      title: {
+        text: "Wartość światła"
       },
       series: [
         {
@@ -279,8 +282,8 @@ export class MyChartComponent implements OnChanges{
       }
     };
     this.chart7options = {
-      title : {
-        text : "Nasycenie światła"
+      title: {
+        text: "Nasycenie światła"
       },
       series: [
         {
@@ -303,8 +306,8 @@ export class MyChartComponent implements OnChanges{
       }
     };
     this.chart8options = {
-      title : {
-        text : "Odcień światła"
+      title: {
+        text: "Odcień światła"
       },
       series: [
         {
@@ -326,10 +329,35 @@ export class MyChartComponent implements OnChanges{
         }
       }
     };
+    this.chart9options = {
+      title: {
+        text: "Energia zużywana przez żarówkę"
+      },
+      series: [
+        {
+          name: "chart3",
+          data: this.parametersTab.energy
+        }
+      ],
+      chart: {
+        id: "yt",
+        group: "social",
+        type: "area",
+        height: 300
+      },
+      colors: ["#00E396"],
+      yaxis: {
+        tickAmount: 2,
+        labels: {
+          minWidth: 40
+        }
+      }
+    };
+
   }
 
 
-  public generateDayWiseTimeSeries(baseval : number, count : number, yrange : {min : number, max : number}): any[] {
+  public generateDayWiseTimeSeries(baseval: number, count: number, yrange: { min: number, max: number }): any[] {
     let i = 0;
     let series = [];
     while (i < count) {

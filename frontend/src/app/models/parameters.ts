@@ -8,4 +8,5 @@ export class Parameters {
     value: number = 0;
     brightness: number = 0;
     temperature: number = 0;
+    energy: number = 0;
   }
