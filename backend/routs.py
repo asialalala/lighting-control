@@ -139,7 +139,7 @@ async def route_get_parameters(ip: str) -> dict:
     response = {
         "voltage": voltage,
         "current": current,
-        "power": power,    #Popraw
+        "power": power,
         "hue": hsv.hue,
         "saturation": hsv.saturation,
         "value": hsv.value,
@@ -156,13 +156,13 @@ async def route_set_parameters():
     print("Update parameters")
     data = request.json
     global voltage
-    voltage = int(data.get('voltage', 0))
+    voltage = float(data.get('voltage', 0))
     global current
-    current = int(data.get('current', 0))
+    current = float(data.get('current', 0))
     global energy
-    energy = int(data.get('energy', 0))
+    energy = float(data.get('energy', 0))
     global power
-    power = int(data.get('power', 0))
+    power = float(data.get('power', 0))
     print("voltage: ", voltage, " current: ", current ," energy: ", energy, " power: ", power)
     return jsonify({"status": "success", "message": "Parameters set successfully"}), 200
 
