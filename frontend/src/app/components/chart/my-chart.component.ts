@@ -65,7 +65,6 @@ export class MyChartComponent implements OnChanges {
       this.chartEnergyOptions.series = [{ name: "Energy", data: this.parametersTab.energy }];
       this.chartBrightnessOptions.series = [{ name: "Brightness", data: this.parametersTab.brightness }];
       this.chartTemperatureOptions.series = [{ name: "Temperature", data: this.parametersTab.temperature }];
-      this.chartValueOptions.series = [{ name: "Value", data: this.parametersTab.value }];
       this.chartSaturationOptions.series = [{ name: "Saturation", data: this.parametersTab.saturation }];
       this.chartHueOptions.series = [{ name: "Hue", data: this.parametersTab.hue }];
     }
@@ -76,7 +75,6 @@ export class MyChartComponent implements OnChanges {
   public chartPowerOptions: Partial<ChartOptions>;
   public chartBrightnessOptions: Partial<ChartOptions>;
   public chartTemperatureOptions: Partial<ChartOptions>;
-  public chartValueOptions: Partial<ChartOptions>;
   public chartSaturationOptions: Partial<ChartOptions>;
   public chartHueOptions: Partial<ChartOptions>;
   public chartEnergyOptions: Partial<ChartOptions>;
@@ -124,7 +122,7 @@ export class MyChartComponent implements OnChanges {
 
     this.chartVoltageOptions = {
       title: {
-        text: "Napięcie"
+        text: "Napięcie dla danej próbki"
       },
       series: [
         {
@@ -143,9 +141,9 @@ export class MyChartComponent implements OnChanges {
         title: {
           text: "Napięcie [V]"
         },
-        min: 0,
-        max: 230,
-        tickAmount: 2,
+        min: 80,
+        max: 260,
+        tickAmount: 0.1,
         labels: {
           minWidth: 40
         }
@@ -159,7 +157,7 @@ export class MyChartComponent implements OnChanges {
     
     this.chartCurrentOptions = {
       title: {
-        text: "Zużycie prądu"
+        text: "Natężenie prądu dla danej próbki"
       },
       series: [
         {
@@ -179,8 +177,8 @@ export class MyChartComponent implements OnChanges {
           text: "Prąd [A]"
         },
         min: 0,
-        max: 0.3,
-        tickAmount: 2,
+        max: 10,
+        tickAmount: 0.001,
         labels: {
           minWidth: 40
         }
@@ -194,7 +192,7 @@ export class MyChartComponent implements OnChanges {
     
     this.chartPowerOptions = {
       title: {
-        text: "Zużycie mocy"
+        text: "Moc czynna dla danej próbki"
       },
       series: [
         {
@@ -214,8 +212,8 @@ export class MyChartComponent implements OnChanges {
           text: "Moc [W]"
         },
         min: 0,
-        max: 9,
-        tickAmount: 2,
+        max: 2300,
+        tickAmount: 0.1,
         labels: {
           minWidth: 40
         }
@@ -229,7 +227,7 @@ export class MyChartComponent implements OnChanges {
     
     this.chartEnergyOptions = {
       title: {
-        text: "Energia zużywana przez żarówkę"
+        text: "Energia czynna dla danej próbki"
       },
       series: [
         {
@@ -246,11 +244,11 @@ export class MyChartComponent implements OnChanges {
       colors: ["#00E396"],
       yaxis: {
         title: {
-          text: "Energia [kWh]"
+          text: "Energia czynna [Wh]"
         },
         min: 0,
-        max: 2,
-        tickAmount: 2,
+        // max: 2,
+        tickAmount: 0.01,
         labels: {
           minWidth: 40
         }
@@ -264,7 +262,7 @@ export class MyChartComponent implements OnChanges {
     
     this.chartBrightnessOptions = {
       title: {
-        text: "Jasność żarówki"
+        text: "Jasność żarówki dla danej próbki"
       },
       series: [
         {
@@ -281,11 +279,11 @@ export class MyChartComponent implements OnChanges {
       colors: ["#00E396"],
       yaxis: {
         title: {
-          text: "Jasność [%]"
+          text: "Jasność żarówki[%]"
         },
         min: 0,
         max: 100,
-        tickAmount: 2,
+        tickAmount: 1,
         labels: {
           minWidth: 40
         }
@@ -299,7 +297,7 @@ export class MyChartComponent implements OnChanges {
     
     this.chartTemperatureOptions = {
       title: {
-        text: "Temperatura światła"
+        text: "Temperatura światła dla danej próbki"
       },
       series: [
         {
@@ -316,11 +314,11 @@ export class MyChartComponent implements OnChanges {
       colors: ["#00E396"],
       yaxis: {
         title: {
-          text: "Temperatura [K]"
+          text: "Temperatura światła [K]"
         },
         min: 2501,
         max: 6519,
-        tickAmount: 2,
+        tickAmount: 1,
         labels: {
           minWidth: 40
         }
@@ -332,44 +330,10 @@ export class MyChartComponent implements OnChanges {
       }
     };
     
-    this.chartValueOptions = {
-      title: {
-        text: "Wartość światła"
-      },
-      series: [
-        {
-          name: "Power",
-          data: this.parametersTab.value
-        }
-      ],
-      chart: {
-        id: "yt",
-        group: "social",
-        type: "area",
-        height: 300
-      },
-      colors: ["#00E396"],
-      yaxis: {
-        title: {
-          text: "Wartość [%]"
-        },
-        min: 0,
-        max: 100,
-        tickAmount: 2,
-        labels: {
-          minWidth: 40
-        }
-      },
-      xaxis: {
-        title: {
-          text: "Numer próbki [n]"
-        }
-      }
-    };
-    
+
     this.chartSaturationOptions = {
       title: {
-        text: "Nasycenie światła"
+        text: "Nasycenie światła dla danej próbki"
       },
       series: [
         {
@@ -390,7 +354,7 @@ export class MyChartComponent implements OnChanges {
         },
         min: 0,
         max: 100,
-        tickAmount: 2,
+        tickAmount: 1,
         labels: {
           minWidth: 40
         }
@@ -404,7 +368,7 @@ export class MyChartComponent implements OnChanges {
     
     this.chartHueOptions = {
       title: {
-        text: "Odcień światła"
+        text: "Odcień światła dla danej próbki"
       },
       series: [
         {
@@ -421,11 +385,11 @@ export class MyChartComponent implements OnChanges {
       colors: ["#00E396"],
       yaxis: {
         title: {
-          text: "Odcień [%]"
+          text: "Odcień RGB"
         },
         min: 0,
-        max: 100,
-        tickAmount: 2,
+        max: 255,
+        tickAmount: 1,
         labels: {
           minWidth: 40
         }
