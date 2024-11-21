@@ -1,20 +1,20 @@
 <div style="text-align:center">
-  <apx-chart [series]="chartVoltageOptions.series" [chart]="chartVoltageOptions.chart" [xaxis]="chartVoltageOptions.xaxis"
+  <apx-chart [series]="chartVoltageOptions.series" [chart]="chartVoltageOptions.chart" [xaxis]="chartVoltageOptions.xaxis" [yaxis]="chartVoltageOptions.yaxis"
     [title]="chartVoltageOptions.title"></apx-chart>
-  <apx-chart [series]="chartCurrentOptions.series" [chart]="chartCurrentOptions.chart" [xaxis]="chartCurrentOptions.xaxis"
+  <apx-chart [series]="chartCurrentOptions.series" [chart]="chartCurrentOptions.chart" [xaxis]="chartCurrentOptions.xaxis" [yaxis]="chartVoltageOptions.yaxis"
     [title]="chartCurrentOptions.title"></apx-chart>
-  <apx-chart [series]="chartPowerOptions.series" [chart]="chartPowerOptions.chart" [xaxis]="chartPowerOptions.xaxis"
+  <apx-chart [series]="chartPowerOptions.series" [chart]="chartPowerOptions.chart" [xaxis]="chartPowerOptions.xaxis" [yaxis]="chartVoltageOptions.yaxis"
     [title]="chartPowerOptions.title"></apx-chart>
-  <apx-chart [series]="chartEnergyOptions.series" [chart]="chartEnergyOptions.chart" [xaxis]="chartEnergyOptions.xaxis"
+  <apx-chart [series]="chartEnergyOptions.series" [chart]="chartEnergyOptions.chart" [xaxis]="chartEnergyOptions.xaxis" [yaxis]="chartVoltageOptions.yaxis"
     [title]="chartEnergyOptions.title"></apx-chart>
-  <apx-chart [series]="chartBrightnessOptions.series" [chart]="chartBrightnessOptions.chart" [xaxis]="chartBrightnessOptions.xaxis"
+  <apx-chart [series]="chartBrightnessOptions.series" [chart]="chartBrightnessOptions.chart" [xaxis]="chartBrightnessOptions.xaxis" [yaxis]="chartVoltageOptions.yaxis"
     [title]="chartBrightnessOptions.title"></apx-chart>
-  <apx-chart [series]="chartTemperatureOptions.series" [chart]="chartTemperatureOptions.chart" [xaxis]="chartTemperatureOptions.xaxis"
+  <apx-chart [series]="chartTemperatureOptions.series" [chart]="chartTemperatureOptions.chart" [xaxis]="chartTemperatureOptions.xaxis" [yaxis]="chartVoltageOptions.yaxis"
     [title]="chartTemperatureOptions.title"></apx-chart>
-  <apx-chart [series]="chartValueOptions.series" [chart]="chartValueOptions.chart" [xaxis]="chartValueOptions.xaxis"
+  <apx-chart [series]="chartValueOptions.series" [chart]="chartValueOptions.chart" [xaxis]="chartValueOptions.xaxis" [yaxis]="chartVoltageOptions.yaxis"
     [title]="chartValueOptions.title"></apx-chart>
-  <apx-chart [series]="chartSaturationOptions.series" [chart]="chartSaturationOptions.chart" [xaxis]="chartSaturationOptions.xaxis"
+  <apx-chart [series]="chartSaturationOptions.series" [chart]="chartSaturationOptions.chart" [xaxis]="chartSaturationOptions.xaxis" [yaxis]="chartVoltageOptions.yaxis"
     [title]="chartSaturationOptions.title"></apx-chart>
-  <apx-chart [series]="chartHueOptions.series" [chart]="chartHueOptions.chart" [xaxis]="chartHueOptions.xaxis"
+  <apx-chart [series]="chartHueOptions.series" [chart]="chartHueOptions.chart" [xaxis]="chartHueOptions.xaxis" [yaxis]="chartVoltageOptions.yaxis"
     [title]="chartHueOptions.title"></apx-chart>
 </div>

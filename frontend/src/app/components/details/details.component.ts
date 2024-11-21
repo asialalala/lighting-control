@@ -21,6 +21,8 @@ export class DetailsComponent implements OnInit, OnDestroy {
   bulb: Bulb | undefined;
   bulbService = inject(BulbService);
   public parameters: Parameters = new Parameters;
+  public label = "Generuj wykres";
+  private chartFlag = false;
   private intervalId: any;
   private intervalDuration: number = 10000;
 
@@ -81,24 +83,38 @@ export class DetailsComponent implements OnInit, OnDestroy {
 
   async getParameters() {
     console.log("Get parameters in DetailsComponent");
-    try {
-      const data = await this.bulbService.getParameters();
-      console.log("Data in details: ", data);
-      this.parameters = {
-        ...this.parameters, current: data.current,
-        voltage: data.voltage,
-        power: data.power,
-        hue: data.hue,
-        saturation: data.saturation,
-        value: data.value,
-        temperature : data.temperature,
-        brightness : data.brightness,
-        energy : data.energy
+    if(this.chartFlag)
+    {
+      try {
+        const data = await this.bulbService.getParameters();
+        console.log("Data in details: ", data);
+        this.parameters = {
+          ...this.parameters, current: data.current,
+          voltage: data.voltage,
+          power: data.power,
+          hue: data.hue,
+          saturation: data.saturation,
+          value: data.value,
+          temperature : data.temperature,
+          brightness : data.brightness,
+          energy : data.energy
+  
+        };
+        this.cdr.detectChanges();
+      } catch (error) {
+        console.log("Error in DetailsComponent:", error);
+      }
+    }
+  }
 
-      };
-      this.cdr.detectChanges();
-    } catch (error) {
-      console.log("Error in DetailsComponent:", error);
+  onDo() {
+    console.log("Do")
+    if(!this.chartFlag){
+      this.label = "Przestań pobierać dane";
+      this.chartFlag = true;
+    } else {
+      this.label = "Generuj wykres";
+      this.chartFlag = false;
     }
   }
 }

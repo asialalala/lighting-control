@@ -14,7 +14,6 @@ import {
   ApexStroke,
   NgApexchartsModule,
   ChartComponent,
-  ApexChart
 } from "ng-apexcharts";
 
 export type ChartOptions = {
@@ -121,7 +120,10 @@ export class MyChartComponent implements OnChanges {
     },
     xaxis: {
       type: "datetime"
-    }
+    },
+    yaxis:{
+      show : true
+    },
   };
 
   constructor() {
@@ -144,15 +146,23 @@ export class MyChartComponent implements OnChanges {
       },
       colors: ["#008FFB"],
       yaxis: {
-        min:0,
-        max:230,
+        title: {
+          text: "Napięcie [V]"
+        },
+        min: 0,
+        max: 230,
         tickAmount: 2,
         labels: {
           minWidth: 40
         }
+      },
+      xaxis: {
+        title: {
+          text: "Numer próbki [n]"
+        }
       }
     };
-
+    
     this.chartCurrentOptions = {
       title: {
         text: "Zużycie prądu"
@@ -171,15 +181,23 @@ export class MyChartComponent implements OnChanges {
       },
       colors: ["#546E7A"],
       yaxis: {
-        min:0,
-        max:0.3,
+        title: {
+          text: "Prąd [A]"
+        },
+        min: 0,
+        max: 0.3,
         tickAmount: 2,
         labels: {
           minWidth: 40
         }
+      },
+      xaxis: {
+        title: {
+          text: "Numer próbki [n]"
+        }
       }
     };
-
+    
     this.chartPowerOptions = {
       title: {
         text: "Zużycie mocy"
@@ -198,15 +216,23 @@ export class MyChartComponent implements OnChanges {
       },
       colors: ["#00E396"],
       yaxis: {
-        min:0,
-        max:9,
+        title: {
+          text: "Moc [W]"
+        },
+        min: 0,
+        max: 9,
         tickAmount: 2,
         labels: {
           minWidth: 40
         }
+      },
+      xaxis: {
+        title: {
+          text: "Numer próbki [n]"
+        }
       }
     };
-
+    
     this.chartEnergyOptions = {
       title: {
         text: "Energia zużywana przez żarówkę"
@@ -225,15 +251,23 @@ export class MyChartComponent implements OnChanges {
       },
       colors: ["#00E396"],
       yaxis: {
-        min:0,
-        max:2,
+        title: {
+          text: "Energia [kWh]"
+        },
+        min: 0,
+        max: 2,
         tickAmount: 2,
         labels: {
           minWidth: 40
         }
+      },
+      xaxis: {
+        title: {
+          text: "Numer próbki [n]"
+        }
       }
     };
-
+    
     this.chartBrightnessOptions = {
       title: {
         text: "Jasność żarówki"
@@ -252,15 +286,23 @@ export class MyChartComponent implements OnChanges {
       },
       colors: ["#00E396"],
       yaxis: {
-        min:0,
-        max:100,
+        title: {
+          text: "Jasność [%]"
+        },
+        min: 0,
+        max: 100,
         tickAmount: 2,
         labels: {
           minWidth: 40
         }
+      },
+      xaxis: {
+        title: {
+          text: "Numer próbki [n]"
+        }
       }
     };
-
+    
     this.chartTemperatureOptions = {
       title: {
         text: "Temperatura światła"
@@ -279,14 +321,23 @@ export class MyChartComponent implements OnChanges {
       },
       colors: ["#00E396"],
       yaxis: {
-        min:2501,
-        max:6519,
+        title: {
+          text: "Temperatura [K]"
+        },
+        min: 2501,
+        max: 6519,
         tickAmount: 2,
         labels: {
           minWidth: 40
         }
+      },
+      xaxis: {
+        title: {
+          text: "Numer próbki [n]"
+        }
       }
     };
+    
     this.chartValueOptions = {
       title: {
         text: "Wartość światła"
@@ -305,14 +356,23 @@ export class MyChartComponent implements OnChanges {
       },
       colors: ["#00E396"],
       yaxis: {
-        min:0,
-        max:100,
+        title: {
+          text: "Wartość [%]"
+        },
+        min: 0,
+        max: 100,
         tickAmount: 2,
         labels: {
           minWidth: 40
         }
+      },
+      xaxis: {
+        title: {
+          text: "Numer próbki [n]"
+        }
       }
     };
+    
     this.chartSaturationOptions = {
       title: {
         text: "Nasycenie światła"
@@ -331,14 +391,23 @@ export class MyChartComponent implements OnChanges {
       },
       colors: ["#00E396"],
       yaxis: {
-        min:0,
-        max:100,
+        title: {
+          text: "Nasycenie [%]"
+        },
+        min: 0,
+        max: 100,
         tickAmount: 2,
         labels: {
           minWidth: 40
         }
+      },
+      xaxis: {
+        title: {
+          text: "Numer próbki [n]"
+        }
       }
     };
+    
     this.chartHueOptions = {
       title: {
         text: "Odcień światła"
@@ -357,17 +426,22 @@ export class MyChartComponent implements OnChanges {
       },
       colors: ["#00E396"],
       yaxis: {
-        min:0,
-        max:100,
+        title: {
+          text: "Odcień [%]"
+        },
+        min: 0,
+        max: 100,
         tickAmount: 2,
         labels: {
           minWidth: 40
         }
+      },
+      xaxis: {
+        title: {
+          text: "Numer próbki [n]"
+        }
       }
     };
-
   }
-
-
 }
 
