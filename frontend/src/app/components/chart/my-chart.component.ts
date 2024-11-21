@@ -42,11 +42,11 @@ export type ChartOptions = {
 export class MyChartComponent implements OnChanges {
   @ViewChild("chart") chart: ChartComponent | undefined;
 
-  @Input() parameters!: Parameters;
+  @Input() parameters: Parameters | undefined;
   parametersTab: ParametersTab = new ParametersTab;
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['parameters']) {
+    if (this.parameters!==undefined && changes['parameters']) {
       console.log('Zmiana w parameters:', changes['parameters'].currentValue);
       this.parametersTab.current.push(changes['parameters'].currentValue.current);
       this.parametersTab.voltage.push(changes['parameters'].currentValue.voltage);
@@ -117,12 +117,6 @@ export class MyChartComponent implements OnChanges {
     },
     grid: {
       clipMarkers: false
-    },
-    xaxis: {
-      type: "datetime"
-    },
-    yaxis:{
-      show : true
     },
   };
 

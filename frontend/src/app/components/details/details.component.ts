@@ -20,7 +20,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
   route: ActivatedRoute = inject(ActivatedRoute);
   bulb: Bulb | undefined;
   bulbService = inject(BulbService);
-  public parameters: Parameters = new Parameters;
+  public parameters: Parameters | undefined;
   public label = "Generuj wykres";
   private chartFlag = false;
   private intervalId: any;
