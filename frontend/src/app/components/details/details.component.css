@@ -35,6 +35,13 @@
   font-size: 14pt;
 }
 
+.formsSelect {
+  padding: 10px; 
+  font-size: 16px; 
+  border: 1px solid #000; 
+  border-radius: 4px;
+}
+
 li {
   list-style-type: none;
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { Parameters } from '../../models/parameters';
 import { ParametersTab } from '../../models/parametersTab'
 
@@ -44,9 +44,17 @@ export class MyChartComponent implements OnChanges {
 
   @Input() parameters: Parameters | undefined;
   parametersTab: ParametersTab = new ParametersTab;
+  @Input() chartLabel: string | undefined;
+  xAxisData = []
+  I = []
+  P = []
+
+  titleI = "Zależność natężenia prądu od temperatury oświetlenia"
+  titleP = "Zależność mocy czynnej od temperatury oświetlenia"
+  titleXAxis = "Temperatura oświetlenia [K]"
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (this.parameters!==undefined && changes['parameters']) {
+    if (this.parameters !== undefined && changes['parameters']) {
       console.log('Zmiana w parameters:', changes['parameters'].currentValue);
       this.parametersTab.current.push(changes['parameters'].currentValue.current);
       this.parametersTab.voltage.push(changes['parameters'].currentValue.voltage);
@@ -67,6 +75,35 @@ export class MyChartComponent implements OnChanges {
       this.chartTemperatureOptions.series = [{ name: "Temperature", data: this.parametersTab.temperature }];
       this.chartSaturationOptions.series = [{ name: "Saturation", data: this.parametersTab.saturation }];
       this.chartHueOptions.series = [{ name: "Hue", data: this.parametersTab.hue }];
+      this.chartIOptions.series = [{ name: "I", data: this.I }];
+      this.chartPOptions.series = [{ name: "P", data: this.parametersTab.power}];
+    }
+    if (this.chartLabel !== undefined && changes['chartLabel']) {
+
+      if (changes['chartLabel'].currentValue === "temperature") {
+        console.log("Ustaw temperature");
+        this.chartIOptions.title = {...this.chartIOptions.title, text: "Zależność natężenia prądu od temperatury oświetlenia"} ;
+        this.chartPOptions.title = {...this.chartIOptions.title, text: "Zależność mocy czynnej od temperatury oświetlenia"} ;
+        this.chartIOptions.xaxis!.title!.text = this.chartPOptions.xaxis!.title!.text = this.titleXAxis = "Temperatura oświetlenia [K]";
+      } else if (changes['chartLabel'].currentValue === "brightness") {
+        console.log("Ustaw jasność");
+        this.chartIOptions.title = {...this.chartIOptions.title, text: "Zależność natężenia prądu od jasności oświetlenia"} ;
+        this.chartPOptions.title = {...this.chartIOptions.title, text: "Zależność mocy czynnej od jasności oświetlenia"} ;
+        this.chartIOptions.xaxis!.title!.text = this.chartPOptions.xaxis!.title!.text = this.titleXAxis = "Jasność oświetlenia [%]";
+
+      } else if (changes['chartLabel'].currentValue === "hue") {
+        console.log("Ustaw odcień");
+        this.chartIOptions.title = {...this.chartIOptions.title, text: "Zależność natężenia prądu od odcienia barwy oświetlenia"} ;
+        this.chartPOptions.title = {...this.chartIOptions.title, text: "Zależność mocy czynnej od odcienia barwy oświetlenia"} ;
+        this.chartIOptions.xaxis!.title!.text = this.chartPOptions.xaxis!.title!.text = this.titleXAxis = "Odcień barwy oświetlenia RGB";
+      } else if (changes['chartLabel'].currentValue === "saturation") {
+        console.log("Ustaw nasycenie");
+        this.chartIOptions.title = {...this.chartIOptions.title, text: "Zależność natężenia prądu od nasycenia barwy oświetlenia"} ;
+        this.chartPOptions.title = {...this.chartIOptions.title, text: "Zależność mocy czynnej od nasycenia barwy oświetlenia"} ;
+        this.chartIOptions.xaxis!.title!.text = this.chartPOptions.xaxis!.title!.text = this.titleXAxis = "Nasycenie barwy oświetlenia [%]";
+      } else {
+        console.log("Nieznana wartość chartLabel:", changes['chartLabel'].currentValue);
+      }
     }
   }
 
@@ -78,6 +115,8 @@ export class MyChartComponent implements OnChanges {
   public chartSaturationOptions: Partial<ChartOptions>;
   public chartHueOptions: Partial<ChartOptions>;
   public chartEnergyOptions: Partial<ChartOptions>;
+  public chartIOptions: Partial<ChartOptions>;
+  public chartPOptions: Partial<ChartOptions>;
   public commonOptions: Partial<ChartOptions> = {
     dataLabels: {
       enabled: false
@@ -118,7 +157,7 @@ export class MyChartComponent implements OnChanges {
     },
   };
 
-  constructor() {
+  constructor(private cd: ChangeDetectorRef) {
 
     this.chartVoltageOptions = {
       title: {
@@ -154,7 +193,7 @@ export class MyChartComponent implements OnChanges {
         }
       }
     };
-    
+
     this.chartCurrentOptions = {
       title: {
         text: "Natężenie prądu dla danej próbki"
@@ -174,7 +213,7 @@ export class MyChartComponent implements OnChanges {
       colors: ["#546E7A"],
       yaxis: {
         title: {
-          text: "Prąd [A]"
+          text: "Natężenie prądu [A]"
         },
         min: 0,
         max: 10,
@@ -189,7 +228,7 @@ export class MyChartComponent implements OnChanges {
         }
       }
     };
-    
+
     this.chartPowerOptions = {
       title: {
         text: "Moc czynna dla danej próbki"
@@ -212,7 +251,7 @@ export class MyChartComponent implements OnChanges {
           text: "Moc [W]"
         },
         min: 0,
-        max: 2300,
+        max: 8.8,
         tickAmount: 0.1,
         labels: {
           minWidth: 40
@@ -224,7 +263,7 @@ export class MyChartComponent implements OnChanges {
         }
       }
     };
-    
+
     this.chartEnergyOptions = {
       title: {
         text: "Energia czynna dla danej próbki"
@@ -259,7 +298,7 @@ export class MyChartComponent implements OnChanges {
         }
       }
     };
-    
+
     this.chartBrightnessOptions = {
       title: {
         text: "Jasność żarówki dla danej próbki"
@@ -294,7 +333,7 @@ export class MyChartComponent implements OnChanges {
         }
       }
     };
-    
+
     this.chartTemperatureOptions = {
       title: {
         text: "Temperatura światła dla danej próbki"
@@ -329,7 +368,7 @@ export class MyChartComponent implements OnChanges {
         }
       }
     };
-    
+
 
     this.chartSaturationOptions = {
       title: {
@@ -365,7 +404,7 @@ export class MyChartComponent implements OnChanges {
         }
       }
     };
-    
+
     this.chartHueOptions = {
       title: {
         text: "Odcień światła dla danej próbki"
@@ -397,6 +436,107 @@ export class MyChartComponent implements OnChanges {
       xaxis: {
         title: {
           text: "Numer próbki [n]"
+        }
+      }
+    };
+
+    this.chartIOptions = {
+      title: {
+        text: this.titleI
+      },
+      series: [
+        {
+          name: "I",
+          data: this.I
+        }
+      ],
+      chart: {
+        id: "yt",
+        group: "social",
+        type: "area",
+        height: 300
+      },
+      colors: ["#00E396"],
+      yaxis: {
+        title: {
+          text: "Natężenie prądu [A]"
+        },
+        min: 0,
+        max: 10,
+        tickAmount: 0.001,
+        labels: {
+          minWidth: 40
+        }
+      },
+      xaxis: {
+        categories: this.xAxisData, // Tablica wartości dla osi X
+        title: {
+          text: this.titleXAxis
+        },
+        labels: {
+          rotate: -45, // Rotacja etykiet osi X, jeśli są długie
+          style: {
+            fontSize: "12px", // Rozmiar czcionki etykiet
+            fontFamily: "Arial, sans-serif" // Czcionka etykiet
+          }
+        },
+        tickPlacement: "on", // Znaczniki osi X na danych
+        axisBorder: {
+          show: true, // Widoczność linii osi X
+        },
+        axisTicks: {
+          show: true // Widoczność znaczników osi X
+        }
+      }
+      
+    };
+
+    this.chartPOptions = {
+      title: {
+        text: this.titleI
+      },
+      series: [
+        {
+          name: "I",
+          data: this.parametersTab.power
+        }
+      ],
+      chart: {
+        id: "yt",
+        group: "social",
+        type: "area",
+        height: 300
+      },
+      colors: ["#00E396"],
+      yaxis: {
+        title: {
+          text: "Moc czynna [W]"
+        },
+        min: 0,
+        max: 8.8,
+        tickAmount: 0.1,
+        labels: {
+          minWidth: 40
+        }
+      },
+      xaxis: {
+        categories: this.parametersTab.temperature, // Tablica wartości dla osi X
+        title: {
+          text: this.titleXAxis
+        },
+        labels: {
+          rotate: -45, // Rotacja etykiet osi X, jeśli są długie
+          style: {
+            fontSize: "12px", // Rozmiar czcionki etykiet
+            fontFamily: "Arial, sans-serif" // Czcionka etykiet
+          }
+        },
+        tickPlacement: "on", // Znaczniki osi X na danych
+        axisBorder: {
+          show: true, // Widoczność linii osi X
+        },
+        axisTicks: {
+          show: true // Widoczność znaczników osi X
         }
       }
     };

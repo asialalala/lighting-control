@@ -1,6 +1,7 @@
 <article>
     <app-my-chart class="listing-chart"
-    [parameters] = "this.parameters" >
+    [parameters] = "this.parameters" 
+    [chartLabel] = "this.chartLabelControl">
     </app-my-chart>
     <section class="listing-description">
       <h2 class="listing-heading"> The bulb </h2>
@@ -14,6 +15,12 @@
         <li>Does this location have laundry: {{ bulb?.id }}</li>
       </ul> -->
     </section>
+    <select [(ngModel)]="this.chartLabelControl" class="formsSelect">
+      <option value="temperature">Temperatura</option>
+      <option value="brightness">Jasność</option>
+      <option value="hue">Odcień</option>
+      <option value="saturation">Nasycenie</option>
+    </select>
     <button class="primary" (click)="onDo()">{{this.label}}</button>
     <section class="listing-apply">
         <h2 class="section-heading">Wprowadzenie parametrów oświetlenia</h2>

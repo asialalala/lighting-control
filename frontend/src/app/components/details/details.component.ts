@@ -8,11 +8,13 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MyChartComponent } from '../chart/my-chart.component';
 import { first } from 'rxjs';
 import { Parameters } from '../../models/parameters';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-details',
   standalone: true,
-  imports: [ReactiveFormsModule, MyChartComponent],
+  imports: [ReactiveFormsModule, MyChartComponent, FormsModule],
   templateUrl: './details.component.html',
   styleUrl: './details.component.css'
 })
@@ -22,7 +24,8 @@ export class DetailsComponent implements OnInit, OnDestroy {
   bulbService = inject(BulbService);
   public parameters: Parameters | undefined;
   public label = "Generuj wykres";
-  private chartFlag = false;
+  public chartLabelControl = "temperature"
+  private isChart = false;
   private intervalId: any;
   private intervalDuration: number = 10000;
 
@@ -39,6 +42,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
     saturation: new FormControl(''),
     value: new FormControl(''),
   });
+ChartLabel: any;
 
   constructor(private applicationRef: ApplicationRef, private cdr: ChangeDetectorRef) {
     const bulbId = Number(this.route.snapshot.params['id']);
@@ -61,19 +65,16 @@ export class DetailsComponent implements OnInit, OnDestroy {
   }
 
   submitBrightness() {
-    console.log("Submit brightenss")
     this.bulbService.submitBrightness(
       this.brightnessForm.value.brightness ?? ''
     );
   }
   submitTemperature() {
-    console.log("Submit temperature")
     this.bulbService.submitTemperature(
       this.temperatureForm.value.temperature ?? ''
     );
   }
   submitColor() {
-    console.log("Submit color")
     this.bulbService.submitColor(
       this.colorForm.value.hue ?? '',
       this.colorForm.value.saturation ?? '',
@@ -82,12 +83,9 @@ export class DetailsComponent implements OnInit, OnDestroy {
   }
 
   async getParameters() {
-    console.log("Get parameters in DetailsComponent");
-    if(this.chartFlag)
-    {
+    if (this.isChart) {
       try {
         const data = await this.bulbService.getParameters();
-        console.log("Data in details: ", data);
         this.parameters = {
           ...this.parameters, current: data.current,
           voltage: data.voltage,
@@ -95,10 +93,10 @@ export class DetailsComponent implements OnInit, OnDestroy {
           hue: data.hue,
           saturation: data.saturation,
           value: data.value,
-          temperature : data.temperature,
-          brightness : data.brightness,
-          energy : data.energy
-  
+          temperature: data.temperature,
+          brightness: data.brightness,
+          energy: data.energy
+
         };
         this.cdr.detectChanges();
       } catch (error) {
@@ -108,13 +106,12 @@ export class DetailsComponent implements OnInit, OnDestroy {
   }
 
   onDo() {
-    console.log("Do")
-    if(!this.chartFlag){
+    if (!this.isChart) {
       this.label = "Przestań pobierać dane";
-      this.chartFlag = true;
+      this.isChart = true;
     } else {
       this.label = "Generuj wykres";
-      this.chartFlag = false;
+      this.isChart = false;
     }
   }
 }
